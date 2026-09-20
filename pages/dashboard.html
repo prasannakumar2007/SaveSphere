@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — MoneyMint</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #FAFAF8;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      color: #4A4A44;
+    }
+    .card {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 48px rgba(46,107,94,0.12);
+      padding: 3rem 2.5rem;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid #E8E2D6;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #F0FAF4;
+      color: #1E7A4A;
+      border: 1px solid rgba(30,122,74,0.2);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.3px;
+    }
+    h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1A1A18;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+    }
+    h1 span { color: #2E6B5E; }
+    p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: #7A7A72;
+      margin-bottom: 2rem;
+    }
+    .user-info {
+      background: #F5F0E8;
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+      color: #4A4A44;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: left;
+    }
+    .user-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2E6B5E, #3D8A79);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.125rem;
+      flex-shrink: 0;
+    }
+    .user-name { font-weight: 600; color: #1A1A18; display: block; margin-bottom: 2px; }
+    .user-id   { font-size: 0.8rem; color: #7A7A72; }
+    .btn-logout {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: #2E6B5E;
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .btn-logout:hover { background: #1E4F45; }
+    .features-note {
+      margin-top: 1.5rem;
+      font-size: 0.8125rem;
+      color: #B0AD9F;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Successfully Authenticated
+    </div>
+    <h1>Your <span>Dashboard</span><br/>is coming soon</h1>
+    <p>
+      You&rsquo;ve successfully logged in to MoneyMint.
+      The full Dashboard with savings schemes, deposit tracking,
+      interest calculations, and more will be built next.
+    </p>
+
+    <div class="user-info" id="user-info-card">
+      <div class="user-avatar" id="user-initial">U</div>
+      <div>
+        <span class="user-name" id="user-name-display">Loading...</span>
+        <span class="user-id" id="user-account-display"></span>
+      </div>
+    </div>
+
+    <button class="btn-logout" id="logout-btn" onclick="handleLogout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Sign Out
+    </button>
+
+    <p class="features-note">
+      Next pages to build: Savings Schemes &bull; Deposit Tracker &bull; Interest Calculator &bull; Profile
+    </p>
+  </div>
+
+  <script type="module">
+    import { AuthService } from '../assets/js/auth.js';
+    // Guard this page
+    AuthService.requireAuth();
+    // Display user info
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      document.getElementById('user-name-display').textContent = user.name;
+      document.getElementById('user-account-display').textContent = 'Account: ' + user.accountNo;
+      document.getElementById('user-initial').textContent = user.name.charAt(0).toUpperCase();
+    }
+    window.handleLogout = () => AuthService.logout();
+  </script>
+</body>
+</html>

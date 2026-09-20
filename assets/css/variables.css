@@ -1,0 +1,120 @@
+/* ==========================================================
+   MoneyMint — Design System Variables
+   All design tokens for colors, typography, spacing, shadows
+   ========================================================== */
+
+:root {
+  /* ── Brand Colors ─────────────────────────────── */
+  --color-brand-green:        #2E6B5E;
+  --color-brand-green-light:  #3D8A79;
+  --color-brand-green-dark:   #1E4F45;
+  --color-brand-gold:         #C9A84C;
+  --color-brand-gold-light:   #D9BC72;
+  --color-brand-gold-dark:    #A8872E;
+
+  /* ── Background Colors ────────────────────────── */
+  --color-bg-primary:         #FAFAF8;
+  --color-bg-secondary:       #F5F0E8;
+  --color-bg-tertiary:        #EDE7D9;
+  --color-bg-card:            #FFFFFF;
+  --color-bg-input:           #FCFBF8;
+  --color-bg-input-focus:     #FFFFFF;
+
+  /* ── Text Colors ──────────────────────────────── */
+  --color-text-primary:       #1A1A18;
+  --color-text-secondary:     #4A4A44;
+  --color-text-muted:         #7A7A72;
+  --color-text-placeholder:   #B0AD9F;
+  --color-text-link:          #2E6B5E;
+  --color-text-link-hover:    #1E4F45;
+  --color-text-on-brand:      #FFFFFF;
+
+  /* ── Border Colors ────────────────────────────── */
+  --color-border-light:       #E8E2D6;
+  --color-border-default:     #D4CEBC;
+  --color-border-focus:       #2E6B5E;
+  --color-border-error:       #C0392B;
+  --color-border-success:     #27AE60;
+
+  /* ── Status Colors ────────────────────────────── */
+  --color-error:              #C0392B;
+  --color-error-bg:           #FDF2F0;
+  --color-success:            #1E7A4A;
+  --color-success-bg:         #F0FAF4;
+  --color-warning:            #C47B1B;
+  --color-warning-bg:         #FEF9EC;
+
+  /* ── Typography ───────────────────────────────── */
+  --font-family-primary:      'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-family-display:      'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+
+  --font-size-xs:             0.6875rem;
+  --font-size-sm:             0.8125rem;
+  --font-size-base:           0.9375rem;
+  --font-size-md:             1rem;
+  --font-size-lg:             1.125rem;
+  --font-size-xl:             1.25rem;
+  --font-size-2xl:            1.5rem;
+  --font-size-3xl:            1.875rem;
+  --font-size-4xl:            2.25rem;
+
+  --font-weight-regular:      400;
+  --font-weight-medium:       500;
+  --font-weight-semibold:     600;
+  --font-weight-bold:         700;
+  --font-weight-extrabold:    800;
+
+  --line-height-tight:        1.2;
+  --line-height-snug:         1.375;
+  --line-height-normal:       1.5;
+  --line-height-relaxed:      1.65;
+
+  /* ── Spacing ──────────────────────────────────── */
+  --space-1:   0.25rem;
+  --space-2:   0.5rem;
+  --space-3:   0.75rem;
+  --space-4:   1rem;
+  --space-5:   1.25rem;
+  --space-6:   1.5rem;
+  --space-7:   1.75rem;
+  --space-8:   2rem;
+  --space-10:  2.5rem;
+  --space-12:  3rem;
+  --space-16:  4rem;
+
+  /* ── Border Radius ────────────────────────────── */
+  --radius-sm:    0.375rem;
+  --radius-md:    0.625rem;
+  --radius-lg:    0.875rem;
+  --radius-xl:    1.25rem;
+  --radius-2xl:   1.75rem;
+  --radius-full:  9999px;
+
+  /* ── Shadows ──────────────────────────────────── */
+  --shadow-xs:   0 1px 2px rgba(46, 107, 94, 0.04);
+  --shadow-sm:   0 1px 4px rgba(46, 107, 94, 0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:   0 4px 12px rgba(46, 107, 94, 0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:   0 8px 28px rgba(46, 107, 94, 0.12), 0 4px 8px rgba(0,0,0,0.06);
+  --shadow-xl:   0 20px 48px rgba(46, 107, 94, 0.14), 0 8px 16px rgba(0,0,0,0.08);
+  --shadow-brand: 0 4px 16px rgba(46, 107, 94, 0.28);
+  --shadow-inset: inset 0 1px 2px rgba(0,0,0,0.06);
+
+  /* ── Transitions ──────────────────────────────── */
+  --transition-fast:    150ms ease;
+  --transition-base:    220ms ease;
+  --transition-slow:    350ms ease;
+  --transition-bounce:  300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Z-index ──────────────────────────────────── */
+  --z-dropdown:  100;
+  --z-modal:     300;
+  --z-overlay:   290;
+  --z-toast:     500;
+
+  /* ── Layout ───────────────────────────────────── */
+  --max-width-sm:   480px;
+  --max-width-md:   680px;
+  --max-width-lg:   1024px;
+  --max-width-xl:   1280px;
+  --login-card-width: 480px;
+}

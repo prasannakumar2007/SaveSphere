@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- SEO -->
+  <title>Sign In — MoneyMint | Digital Savings &amp; Government Schemes Portal</title>
+  <meta name="description" content="Securely sign in to MoneyMint to manage your Post Office and Government Bank savings schemes, track deposits, view interest, and more — all from one place." />
+  <meta name="keywords" content="MoneyMint, savings schemes, post office savings, government savings, digital banking, login" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MoneyMint — Your Digital Savings Portal" />
+  <meta property="og:description" content="Manage your savings schemes and financial plans digitally." />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon (inline SVG as data URI for portability) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232E6B5E'/><text y='22' x='5' font-size='20'>&#x1F33F;</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/login.css" />
+</head>
+
+<body>
+  <!-- ========================================================
+       LOGIN PAGE
+       ======================================================== -->
+  <main class="login-page" id="login-page" role="main">
+
+    <!-- ── Left Brand Panel ─────────────────────────────── -->
+    <section class="login-panel-brand" aria-hidden="true">
+      <!-- Decorative orbs -->
+      <div class="brand-orb brand-orb--1"></div>
+      <div class="brand-orb brand-orb--2"></div>
+
+      <!-- Brand Header -->
+      <header class="brand-header">
+        <div class="brand-logo-wrap">
+          <img src="./assets/images/logo.jpg"
+               alt="MoneyMint Logo"
+               class="brand-logo-img"
+               width="44" height="44" />
+          <span class="brand-name">MoneyMint</span>
+        </div>
+        <p class="brand-tagline">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Since 2024 &middot; Trusted by 50,000+ savers
+        </p>
+      </header>
+
+      <!-- Brand Hero -->
+      <div class="brand-hero">
+        <h1 class="brand-headline">
+          Grow your savings<br />
+          the <span>smart digital</span> way
+        </h1>
+        <p class="brand-description">
+          Manage all your Post Office and Government savings schemes
+          from a single secure portal. No more branch visits for
+          routine transactions.
+        </p>
+
+        <!-- Feature list -->
+        <div class="brand-features">
+          <div class="brand-feature-item">
+            <div class="brand-feature-icon">
+              <!-- Shield icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="brand-feature-text">
+              <strong>Bank-grade Security</strong>
+              <span>End-to-end encrypted &amp; RBI compliant</span>
+            </div>
+          </div>
+
+          <div class="brand-feature-item">
+            <div class="brand-feature-icon">
+              <!-- Trending up icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div class="brand-feature-text">
+              <strong>Real-time Interest Tracker</strong>
+              <span>Watch your savings grow daily</span>
+            </div>
+          </div>
+
+          <div class="brand-feature-item">
+            <div class="brand-feature-icon">
+              <!-- File text icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div class="brand-feature-text">
+              <strong>All Schemes in One Place</strong>
+              <span>PPF, NSC, FD, RD, Sukanya and more</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand Footer -->
+      <footer class="brand-footer">
+        <span class="brand-trust-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          RBI Registered
+        </span>
+        <span class="brand-sep"></span>
+        <span class="brand-trust-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          256-bit SSL
+        </span>
+        <span class="brand-sep"></span>
+        <span class="brand-trust-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          DICGC Protected
+        </span>
+      </footer>
+    </section>
+
+    <!-- ── Right Form Panel ──────────────────────────────── -->
+    <section class="login-panel-form" aria-label="Sign in to your account">
+      <div class="login-form-container">
+
+        <!-- Mobile-only brand header -->
+        <div class="mobile-brand-header" aria-hidden="true">
+          <img src="./assets/images/logo.jpg" alt="MoneyMint" class="mobile-brand-logo" />
+          <span class="mobile-brand-name">MoneyMint</span>
+        </div>
+
+        <!-- ── Login Card ──────────────────────────────── -->
+        <div class="login-card">
+
+          <!-- Card Header -->
+          <div class="login-card-header">
+            <span class="login-secure-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Secure &amp; Encrypted
+            </span>
+            <h2 class="login-title font-display">Welcome back</h2>
+            <p class="login-subtitle">
+              Sign in securely to access your savings schemes, deposit history,
+              and financial details — all in one place.
+            </p>
+          </div>
+
+          <!-- Alert Banner (dynamic, hidden by default) -->
+          <div id="login-alert-banner"
+               class="alert-banner alert-banner--error"
+               role="alert"
+               aria-live="assertive"
+               style="display:none;"></div>
+
+          <!-- ── Login Form ────────────────────────────── -->
+          <form id="login-form"
+                class="login-form"
+                novalidate
+                autocomplete="on"
+                aria-label="Login form">
+
+            <!-- Email / User ID -->
+            <div class="form-group" id="group-email">
+              <label class="form-label" for="login-email">
+                Email or User ID <span class="required" aria-hidden="true">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="login-email"
+                  name="emailOrId"
+                  class="form-input"
+                  placeholder="you@email.com or MM-100001"
+                  autocomplete="username"
+                  inputmode="email"
+                  maxlength="80"
+                  aria-required="true"
+                  aria-describedby="email-error"
+                />
+                <!-- Email icon -->
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div id="email-error" class="field-error" role="alert" style="display:none;"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group" id="group-password">
+              <label class="form-label" for="login-password">
+                Password <span class="required" aria-hidden="true">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="password"
+                  id="login-password"
+                  name="password"
+                  class="form-input form-input--password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  maxlength="128"
+                  aria-required="true"
+                  aria-describedby="password-error"
+                />
+                <!-- Lock icon -->
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <!-- Password toggle -->
+                <button
+                  type="button"
+                  id="password-toggle"
+                  class="password-toggle-btn"
+                  aria-label="Show password"
+                  title="Toggle password visibility">
+                  <!-- Eye open icon -->
+                  <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <!-- Eye off icon -->
+                  <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+              <div id="password-error" class="field-error" role="alert" style="display:none;"></div>
+            </div>
+
+            <!-- Remember Me + Forgot Password row -->
+            <div class="form-options-row">
+              <label class="checkbox-label" for="remember-me">
+                <input
+                  type="checkbox"
+                  id="remember-me"
+                  name="rememberMe"
+                  class="checkbox-input"
+                />
+                <span class="checkbox-custom" aria-hidden="true"></span>
+                Remember me
+              </label>
+              <a href="#"
+                 id="forgot-password-link"
+                 class="forgot-link"
+                 role="button"
+                 aria-haspopup="dialog"
+                 aria-controls="forgot-password-modal">
+                Forgot Password?
+              </a>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              id="login-submit-btn"
+              class="btn btn--primary"
+              aria-label="Sign in"
+              aria-busy="false">
+              <span class="btn-spinner" id="login-spinner" aria-hidden="true"></span>
+              <span class="btn-text" id="login-btn-text">Sign In</span>
+            </button>
+
+          </form>
+
+          <!-- Divider -->
+          <div class="form-divider" aria-hidden="true">
+            <div class="form-divider-line"></div>
+            <span class="form-divider-text">New to MoneyMint?</span>
+            <div class="form-divider-line"></div>
+          </div>
+
+          <!-- Sign Up link -->
+          <p class="signup-row">
+            Don&rsquo;t have an account?
+            <a href="./pages/register.html"
+               id="signup-link"
+               class="signup-link">
+              Create Account &rarr;
+            </a>
+          </p>
+
+        </div><!-- /.login-card -->
+
+        <!-- Footer note -->
+        <p class="login-footer-note">
+          By signing in, you agree to our
+          <a href="#">Terms of Service</a> and
+          <a href="#">Privacy Policy</a>.<br />
+          &copy; 2024 MoneyMint. All rights reserved.
+        </p>
+
+      </div><!-- /.login-form-container -->
+    </section>
+
+  </main><!-- /#login-page -->
+
+
+  <!-- ========================================================
+       FORGOT PASSWORD MODAL
+       ======================================================== -->
+  <div
+    id="forgot-password-modal"
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="fp-modal-title"
+    aria-describedby="fp-modal-desc">
+
+    <div class="modal">
+      <!-- Close button -->
+      <button
+        id="fp-modal-close"
+        class="modal-close"
+        aria-label="Close dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <!-- Modal Form view -->
+      <div id="fp-form" class="modal-form">
+        <div class="modal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3 id="fp-modal-title" class="modal-title font-display">Reset your password</h3>
+        <p id="fp-modal-desc" class="modal-desc">
+          Enter the email address linked to your MoneyMint account.
+          We&rsquo;ll send you a secure reset link.
+        </p>
+
+        <form id="fp-form-inner" novalidate aria-label="Forgot password form">
+          <div class="form-group">
+            <label class="form-label" for="fp-email">
+              Registered Email Address <span class="required" aria-hidden="true">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="email"
+                id="fp-email"
+                name="resetEmail"
+                class="form-input"
+                placeholder="you@email.com"
+                autocomplete="email"
+                inputmode="email"
+                maxlength="80"
+                aria-required="true"
+              />
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            id="fp-submit-btn"
+            class="btn btn--primary"
+            style="margin-top: 0.5rem;"
+            aria-label="Send reset link"
+            aria-busy="false">
+            <span class="btn-spinner" id="fp-spinner" aria-hidden="true"></span>
+            <span class="btn-text" id="fp-btn-text">Send Reset Link</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Success State (shown after sending reset link) -->
+      <div id="fp-success-state" class="modal-success-state" role="status" aria-live="polite">
+        <div class="modal-success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 class="modal-title font-display" style="text-align:center;">Check your inbox!</h3>
+        <p class="modal-desc" style="text-align:center; margin-bottom: 1.5rem;">
+          We&rsquo;ve sent a password reset link to<br />
+          <strong id="fp-success-email" style="color: var(--color-text-primary);"></strong>.
+          The link will expire in 15 minutes.
+        </p>
+        <p style="text-align:center; font-size:0.8125rem; color:var(--color-text-muted);">
+          Didn&rsquo;t receive it? Check your spam folder or
+          <button type="button"
+                  onclick="document.getElementById('fp-success-state').classList.remove('is-visible'); document.getElementById('fp-form').classList.remove('is-hidden');"
+                  style="background:none;border:none;cursor:pointer;color:var(--color-brand-green);font-size:inherit;font-weight:600;padding:0;">
+            try again.
+          </button>
+        </p>
+      </div>
+
+    </div><!-- /.modal -->
+  </div><!-- /#forgot-password-modal -->
+
+
+  <!-- Scripts (ES modules) -->
+  <script type="module" src="./assets/js/login.js"></script>
+
+</body>
+</html>
