@@ -46,20 +46,52 @@ export const AuthService = {
    * @returns {Promise<{success: boolean, user?: object, error?: string}>}
    */
   async login(emailOrId, password, rememberMe = false) {
-    /* ——— REPLACE THIS BLOCK with a real fetch() call when backend is ready ———
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ emailOrId, password }),
-      credentials: 'include',
-    });
-    const data = await response.json();
-    if (!response.ok) return { success: false, error: data.message || 'Login failed.' };
-    this._persistSession(data.token, data.user, rememberMe);
-    return { success: true, user: data.user };
-    ————————————————————————————————————————————— */
-    return this._simulateLogin(emailOrId, password, rememberMe);
-  },
+    try {
+        const response = await fetch("http://localhost:5000/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: emailOrId,
+                password: password
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            return {
+                success: false,
+                error: data.message || "Login failed."
+            };
+        }
+
+        const user = {
+            id: data.user.id,
+            name: data.user.full_name,
+            email: data.user.email,
+            mobile: data.user.mobile
+        };
+
+        const token = `mm_session_${Date.now()}`;
+
+        this._persistSession(token, user, rememberMe);
+
+        return {
+            success: true,
+            user: user
+        };
+
+    } catch (error) {
+        console.error("Login API error:", error);
+
+        return {
+            success: false,
+            error: "Unable to connect to the server."
+        };
+    }
+},
 
   /**
    * Simulated login (frontend-only, for development).

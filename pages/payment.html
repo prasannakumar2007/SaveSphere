@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Payment — MoneyMint</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+
+    <style>
+        :root {
+            --green: #2E6B5E;
+            --green-dark: #1E4F45;
+            --green-light: #EAF5F1;
+            --green-soft: #F3F9F6;
+            --cream: #FAFAF8;
+            --white: #FFFFFF;
+            --text: #1A1A18;
+            --text-secondary: #4A4A44;
+            --muted: #77776F;
+            --border: #E8E2D6;
+            --border-light: #F0EEE8;
+            --danger: #C0392B;
+            --danger-light: #FFF1EF;
+            --shadow: 0 10px 30px rgba(46, 107, 94, 0.08);
+            --shadow-hover: 0 14px 35px rgba(46, 107, 94, 0.13);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* HEADER NAVBAR */
+        .navbar {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .brand-name {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            background: var(--green-light);
+            color: var(--green);
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #DCEEE8;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 960px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            margin-bottom: 28px;
+        }
+
+        .page-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .page-subtitle {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* GRID */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1.3fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .card-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        /* SUMMARY ITEMS */
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--border-light);
+            font-size: 14px;
+        }
+
+        .summary-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .highlight-box {
+            background: var(--green-soft);
+            border: 1px solid #D2E7DF;
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .highlight-label {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .highlight-amount {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        /* PAYMENT METHOD SELECTOR */
+        .method-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .method-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .method-option {
+            border: 2px solid var(--border);
+            background: var(--white);
+            border-radius: 12px;
+            padding: 14px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .method-option:hover {
+            border-color: #B5D5CC;
+            background: var(--green-soft);
+        }
+
+        .method-option.selected {
+            border-color: var(--green);
+            background: var(--green-light);
+            box-shadow: 0 4px 12px rgba(46, 107, 94, 0.12);
+        }
+
+        .method-icon {
+            font-size: 22px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .method-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* INPUT FIELDS */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text);
+            background: var(--white);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(46, 107, 94, 0.12);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* BUTTON */
+        .pay-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--green);
+            color: var(--white);
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(46, 107, 94, 0.25);
+            margin-top: 10px;
+        }
+
+        .pay-btn:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(46, 107, 94, 0.3);
+        }
+
+        .pay-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .error-banner {
+            display: none;
+            padding: 12px 14px;
+            background: var(--danger-light);
+            color: var(--danger);
+            border: 1px solid #F5C6CB;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        /* SUCCESS OVERLAY MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(20, 35, 30, 0.65);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .success-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 32px 28px;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.25);
+            animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            background: #EAF7F1;
+            color: #1E7A4A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(30, 122, 74, 0.18);
+        }
+
+        .success-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .success-subtitle {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .receipt-box {
+            background: var(--green-soft);
+            border: 1px solid #D2E7DF;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 6px 0;
+        }
+
+        .receipt-row span:first-child {
+            color: var(--muted);
+        }
+
+        .receipt-row span:last-child {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .done-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: var(--green);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .done-btn:hover {
+            background: var(--green-dark);
+        }
+
+        @media (max-width: 768px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+            .navbar {
+                padding: 14px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="dashboard.html" class="brand">
+            <img src="../assets/images/logo.jpg" alt="MoneyMint Logo" onError="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'><rect width=\'32\' height=\'32\' rx=\'8\' fill=\'%232E6B5E\'/><text y=\'22\' x=\'5\' font-size=\'20\'>🌿</text></svg>'">
+            <span class="brand-name">MoneyMint</span>
+        </a>
+
+        <a href="dashboard.html" class="back-btn">
+            &larr; Cancel & Return to Dashboard
+        </a>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="container">
+
+        <div class="page-header">
+            <h1 class="page-title">Complete Your Deposit</h1>
+            <p class="page-subtitle">Secure payment checkout for your MoneyMint savings plan activation.</p>
+        </div>
+
+        <div id="error-banner" class="error-banner"></div>
+
+        <div class="payment-grid">
+
+            <!-- LEFT: PLAN SUMMARY CARD -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Savings Plan Summary</h2>
+                    <span style="font-size: 12px; font-weight: 700; background: var(--green-light); color: var(--green); padding: 4px 10px; border-radius: 12px;">Active Scheme</span>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">Scheme Name</span>
+                    <span class="summary-value" id="scheme-name">Loading...</span>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">Interest Rate</span>
+                    <span class="summary-value" id="interest-rate">—</span>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">Duration</span>
+                    <span class="summary-value" id="duration">—</span>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">Payout Frequency</span>
+                    <span class="summary-value" id="payout-type">—</span>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">Savings Target Goal</span>
+                    <span class="summary-value" id="target-amount-display">₹0</span>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-label">Initial Deposit Amount</div>
+                    <div class="highlight-amount" id="deposit-amount-display">₹0</div>
+                </div>
+            </section>
+
+            <!-- RIGHT: PAYMENT METHOD CARD -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Select Payment Method</h2>
+                    <span style="font-size: 12px; color: var(--muted);">Demo Payment</span>
+                </div>
+
+                <!-- METHOD OPTIONS -->
+                <span class="method-label">Choose how you want to pay:</span>
+                <div class="method-options">
+                    <div class="method-option selected" data-method="UPI" onclick="selectPaymentMethod('UPI', this)">
+                        <span class="method-icon">📱</span>
+                        <span class="method-name">UPI / QR</span>
+                    </div>
+
+                    <div class="method-option" data-method="CARD" onclick="selectPaymentMethod('CARD', this)">
+                        <span class="method-icon">💳</span>
+                        <span class="method-name">Card</span>
+                    </div>
+
+                    <div class="method-option" data-method="NETBANKING" onclick="selectPaymentMethod('NETBANKING', this)">
+                        <span class="method-icon">🏦</span>
+                        <span class="method-name">Net Banking</span>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC METHOD DETAILS -->
+                <div id="method-container">
+
+                    <!-- UPI FORM -->
+                    <div id="form-upi">
+                        <div class="form-group">
+                            <label class="form-label" for="upi-id">Virtual Payment Address (VPA / UPI ID)</label>
+                            <input type="text" id="upi-id" class="form-input" placeholder="e.g. mobileNumber@upi or user@okaxis" value="demouser@moneymint">
+                        </div>
+                        <div style="font-size: 12px; color: var(--muted); margin-bottom: 16px;">
+                            Supported: Google Pay, PhonePe, Paytm, BHIM & All Bank UPI Apps.
+                        </div>
+                    </div>
+
+                    <!-- CARD FORM -->
+                    <div id="form-card" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="card-num">Card Number</label>
+                            <input type="text" id="card-num" class="form-input" placeholder="4532 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 8921" value="4532 9812 3456 8921" maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="card-exp">Expiry (MM/YY)</label>
+                                <input type="text" id="card-exp" class="form-input" placeholder="12/28" value="12/28">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="card-cvv">CVV</label>
+                                <input type="password" id="card-cvv" class="form-input" placeholder="&bull;&bull;&bull;" value="888" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NET BANKING FORM -->
+                    <div id="form-netbanking" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="bank-select">Select Bank</label>
+                            <select id="bank-select" class="form-select">
+                                <option value="SBI">State Bank of India (SBI)</option>
+                                <option value="HDFC">HDFC Bank</option>
+                                <option value="ICICI">ICICI Bank</option>
+                                <option value="AXIS">Axis Bank</option>
+                                <option value="PNB">Punjab National Bank</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PAY BUTTON -->
+                <button type="button" id="pay-btn" class="pay-btn" onclick="processPayment()">
+                    <span id="btn-spinner" class="btn-spinner"></span>
+                    <span id="pay-btn-text">Pay Now &amp; Activate Plan</span>
+                </button>
+
+                <div class="secure-badge">
+                    <span>🔒</span>
+                    <span>256-bit Encrypted Demo Checkout &bull; No Real Money Charged</span>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="success-card">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">Payment Successful!</h2>
+            <p class="success-subtitle">Your savings plan has been activated &amp; updated on your dashboard.</p>
+
+            <div class="receipt-box">
+                <div class="receipt-row">
+                    <span>Transaction ID</span>
+                    <span id="rec-txnid" style="font-family: monospace;">MMTXN00000</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Amount Paid</span>
+                    <span id="rec-amount" style="color: var(--green);">₹0</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Savings Scheme</span>
+                    <span id="rec-scheme">—</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Payment Method</span>
+                    <span id="rec-method">UPI</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Payment Status</span>
+                    <span style="color: #1E7A4A; font-weight: 800;">SUCCESS</span>
+                </div>
+            </div>
+
+            <button type="button" class="done-btn" onclick="returnToDashboard()">
+                Return to Dashboard
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script type="module">
+        import { AuthService } from "../assets/js/auth.js";
+
+        const API_URL = "http://localhost:5000";
+
+        // Check login
+        const user = AuthService.getCurrentUser();
+        if (!user || !user.id) {
+            alert("Session expired. Please log in again.");
+            window.location.href = "../index.html";
+        }
+
+        // Get query parameters
+        const params = new URLSearchParams(window.location.search);
+        const schemeId = params.get("scheme_id");
+        const amount = params.get("amount");
+        const targetAmount = params.get("target_amount");
+
+        let currentMethod = "UPI";
+        let targetScheme = null;
+
+        // Elements
+        const schemeNameEl = document.getElementById("scheme-name");
+        const interestRateEl = document.getElementById("interest-rate");
+        const durationEl = document.getElementById("duration");
+        const payoutTypeEl = document.getElementById("payout-type");
+        const depositDisplayEl = document.getElementById("deposit-amount-display");
+        const targetDisplayEl = document.getElementById("target-amount-display");
+        const payBtnText = document.getElementById("pay-btn-text");
+        const payBtn = document.getElementById("pay-btn");
+        const errorBanner = document.getElementById("error-banner");
+
+        // Global functions for inline handlers
+        window.selectPaymentMethod = function(method, el) {
+            currentMethod = method;
+            document.querySelectorAll(".method-option").forEach(opt => opt.classList.remove("selected"));
+            el.classList.add("selected");
+
+            document.getElementById("form-upi").style.display = method === "UPI" ? "block" : "none";
+            document.getElementById("form-card").style.display = method === "CARD" ? "block" : "none";
+            document.getElementById("form-netbanking").style.display = method === "NETBANKING" ? "block" : "none";
+        };
+
+        // Load Scheme Details
+        async function loadSchemeInfo() {
+            if (!schemeId || !amount || !targetAmount) {
+                showError("Invalid payment request parameters. Please return to dashboard and try again.");
+                payBtn.disabled = true;
+                return;
+            }
+
+            const numAmt = Number(amount);
+            const numTgt = Number(targetAmount);
+
+            depositDisplayEl.textContent = `₹${numAmt.toLocaleString("en-IN")}`;
+            targetDisplayEl.textContent = `₹${numTgt.toLocaleString("en-IN")}`;
+            payBtnText.textContent = `Pay ₹${numAmt.toLocaleString("en-IN")} & Activate Plan`;
+
+            try {
+                const response = await fetch(`${API_URL}/api/schemes`);
+                const data = await response.json();
+
+                if (!data.success || !Array.isArray(data.schemes)) {
+                    throw new Error("Failed to load savings schemes.");
+                }
+
+                targetScheme = data.schemes.find(s => Number(s.id) === Number(schemeId));
+
+                if (!targetScheme) {
+                    throw new Error("Savings scheme not found.");
+                }
+
+                schemeNameEl.textContent = targetScheme.name;
+                interestRateEl.textContent = `${targetScheme.interest_rate}% p.a.`;
+                durationEl.textContent = `${targetScheme.duration_months} Months`;
+                payoutTypeEl.textContent = targetScheme.payout_type || "At Maturity";
+
+            } catch (err) {
+                console.error("Scheme load error:", err);
+                showError(err.message || "Failed to fetch scheme information.");
+                payBtn.disabled = true;
+            }
+        }
+
+        // Process Demo Payment
+        window.processPayment = async function() {
+            errorBanner.style.display = "none";
+
+            if (!targetScheme) {
+                showError("Scheme data missing.");
+                return;
+            }
+
+            payBtn.disabled = true;
+            document.getElementById("btn-spinner").style.display = "inline-block";
+            payBtnText.textContent = "Processing Secure Payment...";
+
+            // Simulate realistic processing delay (1.2 seconds)
+            await new Promise(r => setTimeout(r, 1200));
+
+            try {
+                const response = await fetch(`${API_URL}/api/payments/process`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        user_id: user.id,
+                        scheme_id: Number(schemeId),
+                        amount: Number(amount),
+                        target_amount: Number(targetAmount),
+                        payment_method: currentMethod
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.message || "Payment failed to process.");
+                }
+
+                // Show Success Modal with receipt details
+                document.getElementById("rec-txnid").textContent = data.transactionId;
+                document.getElementById("rec-amount").textContent = `₹${Number(amount).toLocaleString("en-IN")}`;
+                document.getElementById("rec-scheme").textContent = targetScheme.name;
+                document.getElementById("rec-method").textContent = currentMethod;
+
+                document.getElementById("success-modal").classList.add("show");
+
+                // Auto-redirect after 4 seconds
+                setTimeout(() => {
+                    returnToDashboard();
+                }, 4000);
+
+            } catch (err) {
+                console.error("Payment execution error:", err);
+                showError(err.message || "Payment transaction failed.");
+                payBtn.disabled = false;
+                document.getElementById("btn-spinner").style.display = "none";
+                payBtnText.textContent = `Pay ₹${Number(amount).toLocaleString("en-IN")} & Activate Plan`;
+            }
+        };
+
+        window.returnToDashboard = function() {
+            window.location.href = "dashboard.html";
+        };
+
+        function showError(msg) {
+            errorBanner.textContent = msg;
+            errorBanner.style.display = "block";
+        }
+
+        // Initialize
+        loadSchemeInfo();
+    </script>
+</body>
+</html>
