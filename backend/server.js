@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const pool = require("./config/db");
 const bcrypt = require("bcrypt");
 
@@ -8,15 +9,7 @@ const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
-
-
-// =====================================================
-// HOME
-// =====================================================
-
-app.get("/", (req, res) => {
-    res.send("MoneyMint backend is running!");
-});
+app.use(express.static(path.join(__dirname, "..")));
 
 
 // =====================================================
@@ -126,19 +119,27 @@ app.post("/api/login", async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "Email and password are required."
+                message: "Email or User ID and password are required."
             });
         }
 
+        const inputStr = String(email).trim();
+        let parsedId = null;
+        if (/^MM-\d+$/i.test(inputStr)) {
+            parsedId = parseInt(inputStr.replace(/^MM-/i, ''), 10);
+        } else if (/^\d+$/.test(inputStr)) {
+            parsedId = parseInt(inputStr, 10);
+        }
+
         const [users] = await pool.query(
-            "SELECT * FROM users WHERE email = ?",
-            [email]
+            "SELECT * FROM users WHERE email = ? OR id = ?",
+            [inputStr, parsedId !== null ? parsedId : -1]
         );
 
         if (users.length === 0) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid email or password."
+                message: "Invalid email/User ID or password."
             });
         }
 
@@ -152,7 +153,7 @@ app.post("/api/login", async (req, res) => {
         if (!passwordMatch) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid email or password."
+                message: "Invalid email/User ID or password."
             });
         }
 

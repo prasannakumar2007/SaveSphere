@@ -663,11 +663,12 @@
 
         const API_URL = "http://localhost:5000";
 
-        // Check login
+        // Check login using existing AuthService
         const user = AuthService.getCurrentUser();
-        if (!user || !user.id) {
+        if (!user) {
             alert("Session expired. Please log in again.");
-            window.location.href = "../index.html";
+            const redirectTarget = window.location.pathname.includes("/pages/") ? "../index.html" : "index.html";
+            window.location.href = redirectTarget;
         }
 
         // Get query parameters

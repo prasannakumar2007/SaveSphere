@@ -2704,18 +2704,15 @@ async function activateScheme() {
     }
 
 
-    if (!user || !user.id) {
+    const currentUser = AuthService.getCurrentUser();
+
+    if (!currentUser) {
 
         errorBox.textContent =
             "User information is missing. Please log in again.";
 
         errorBox.style.display =
             "block";
-
-        console.error(
-            "Logged-in user does not contain an ID:",
-            user
-        );
 
         return;
     }

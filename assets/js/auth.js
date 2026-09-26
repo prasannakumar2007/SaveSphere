@@ -107,7 +107,7 @@ export const AuthService = {
 
     if (match) {
       const fakeToken = `mm_dev_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      const user = { name: match.name, accountNo: match.accountNo, email: match.emailOrId };
+      const user = { id: 1, name: match.name, accountNo: match.accountNo, email: match.emailOrId };
       this._persistSession(fakeToken, user, rememberMe);
       return { success: true, user };
     }
@@ -124,16 +124,6 @@ export const AuthService = {
    * @returns {Promise<{success: boolean, message?: string, error?: string}>}
    */
   async forgotPassword(email) {
-    /* ——— REPLACE with real API call ———
-    const response = await fetch('/api/auth/forgot-password', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
-    const data = await response.json();
-    if (!response.ok) return { success: false, error: data.message };
-    return { success: true, message: data.message };
-    —————————————————————————————— */
     await sleep(1400); // simulate network
     const emailPattern = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(email.trim())) {
@@ -153,7 +143,8 @@ export const AuthService = {
     Storage.remove(AUTH_USER_KEY);
     Session.remove(AUTH_TOKEN_KEY);
     Session.remove(AUTH_USER_KEY);
-    window.location.href = '/index.html';
+    const target = window.location.pathname.includes('/pages/') ? '../index.html' : 'index.html';
+    window.location.href = target;
   },
 
   /**
@@ -169,7 +160,11 @@ export const AuthService = {
    * @returns {object|null}
    */
   getCurrentUser() {
-    return Storage.get(AUTH_USER_KEY) || Session.get(AUTH_USER_KEY);
+    let u = Storage.get(AUTH_USER_KEY) || Session.get(AUTH_USER_KEY);
+    if (u && !u.id) {
+      u.id = u.accountNo ? (parseInt(String(u.accountNo).replace(/\D/g, '')) || 1) : 1;
+    }
+    return u;
   },
 
   /**
@@ -186,7 +181,8 @@ export const AuthService = {
    */
   requireAuth() {
     if (!this.isAuthenticated()) {
-      window.location.href = '/index.html';
+      const target = window.location.pathname.includes('/pages/') ? '../index.html' : 'index.html';
+      window.location.href = target;
     }
   },
 
