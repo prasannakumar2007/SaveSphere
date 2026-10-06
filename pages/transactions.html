@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transactions — MoneyMint</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --green: #2E6B5E;
+            --green-dark: #1E4F45;
+            --green-light: #EAF5F1;
+            --green-soft: #F3F9F6;
+
+            --cream: #FAFAF8;
+            --white: #FFFFFF;
+
+            --text: #1A1A18;
+            --text-secondary: #4A4A44;
+            --muted: #77776F;
+
+            --border: #E8E2D6;
+            --border-light: #F0EEE8;
+
+            --danger: #C0392B;
+            --danger-light: #FFF1EF;
+
+            --warning: #B7791F;
+            --warning-light: #FFF8E7;
+
+            --shadow: 0 10px 30px rgba(46, 107, 94, 0.08);
+
+            --sidebar-width: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 10px 30px;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .brand-name {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-link {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            padding: 13px 14px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .nav-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .logout-button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--danger);
+            padding: 12px 14px;
+            border-radius: 11px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .logout-button:hover {
+            background: var(--danger-light);
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 32px 40px 60px;
+            max-width: 1200px;
+        }
+
+        .topbar {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .txn-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .txn-table th {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--cream);
+        }
+
+        .txn-table th:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .txn-table th:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .txn-table td {
+            padding: 16px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text);
+        }
+
+        .txn-id {
+            font-family: monospace;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .txn-amount {
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status-badge.SUCCESS {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .status-badge.PENDING {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .status-badge.FAILED {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+        }
+
+        .empty-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            background: var(--green-light);
+            color: var(--green);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .empty-description {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 360px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--green);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .btn-link:hover {
+            background: var(--green-dark);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 70px; padding: 16px 10px; }
+            .brand-name, .nav-link span:not(.nav-icon), .logout-button span:not(.nav-icon) { display: none; }
+            .main { margin-left: 70px; padding: 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="../assets/images/logo.jpg" alt="MoneyMint Logo">
+            <span class="brand-name">MoneyMint</span>
+        </div>
+
+        <nav class="nav">
+            <a href="dashboard.html" class="nav-link">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="schemes.html" class="nav-link">
+                <span class="nav-icon">◈</span>
+                <span>Savings Schemes</span>
+            </a>
+            <a href="transactions.html" class="nav-link active">
+                <span class="nav-icon">↔</span>
+                <span>Transactions</span>
+            </a>
+            <a href="profile.html" class="nav-link">
+                <span class="nav-icon">◎</span>
+                <span>My Account</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button type="button" class="logout-button" id="logout-button">
+                <span class="nav-icon">↪</span>
+                <span>Sign Out</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1 class="page-title">Transaction History</h1>
+            <p class="page-subtitle">Detailed record of all your demo payments and deposits in MoneyMint.</p>
+        </header>
+
+        <section class="card">
+            <div id="txn-container">
+                <div style="text-align: center; padding: 40px; color: var(--muted);">
+                    Loading transactions...
+                </div>
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<!-- SCRIPTS -->
+<script type="module">
+import { AuthService } from "../assets/js/auth.js";
+
+const API_URL = "http://localhost:5000";
+const $ = (id) => document.getElementById(id);
+
+AuthService.requireAuth();
+const user = AuthService.getCurrentUser();
+
+$("logout-button").addEventListener("click", () => AuthService.logout());
+
+function formatDate(dateValue) {
+    if (!dateValue) return "—";
+    const date = new Date(dateValue);
+    if (isNaN(date.getTime())) return "—";
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
+async function loadTransactions() {
+    const container = $("txn-container");
+    if (!user || !user.id) {
+        container.innerHTML = `<div class="empty-state"><p class="empty-description">User session missing.</p></div>`;
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/api/payments/user/${user.id}`);
+        const data = await response.json();
+
+        if (!data.success || !Array.isArray(data.payments) || data.payments.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">↔</div>
+                    <h3 class="empty-title">No transactions yet</h3>
+                    <p class="empty-description">
+                        Your deposit transactions will appear here once you activate a savings scheme.
+                    </p>
+                    <a href="schemes.html" class="btn-link">Explore Savings Schemes &rarr;</a>
+                </div>
+            `;
+            return;
+        }
+
+        let html = `
+            <div class="table-responsive">
+                <table class="txn-table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Savings Scheme</th>
+                            <th>Amount</th>
+                            <th>Date &amp; Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        data.payments.forEach(txn => {
+            const amt = Number(txn.amount || 0);
+            const status = txn.payment_status || "SUCCESS";
+            const txnid = txn.transaction_id || `MMTXN${txn.id}`;
+            const schemeName = txn.scheme_name || "Savings Plan";
+
+            html += `
+                <tr>
+                    <td class="txn-id">${txnid}</td>
+                    <td><strong>${schemeName}</strong></td>
+                    <td class="txn-amount">₹${amt.toLocaleString('en-IN')}</td>
+                    <td>${formatDate(txn.created_at)}</td>
+                    <td><span class="status-badge ${status}">${status}</span></td>
+                </tr>
+            `;
+        });
+
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        container.innerHTML = html;
+
+    } catch (err) {
+        console.error("Transactions load error:", err);
+        container.innerHTML = `<div style="text-align: center; color: var(--danger); padding: 30px;">Failed to load transactions history.</div>`;
+    }
+}
+
+loadTransactions();
+</script>
+
+</body>
+</html>

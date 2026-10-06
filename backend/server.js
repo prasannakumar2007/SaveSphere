@@ -180,6 +180,42 @@ app.post("/api/login", async (req, res) => {
 
 
 // =====================================================
+// GET USER PROFILE BY ID
+// =====================================================
+
+app.get("/api/user/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [users] = await pool.query(
+            "SELECT id, full_name, email, mobile, is_verified, created_at FROM users WHERE id = ?",
+            [id]
+        );
+
+        if (users.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        res.json({
+            success: true,
+            user: users[0]
+        });
+
+    } catch (error) {
+        console.error("User profile error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load user profile."
+        });
+    }
+});
+
+
+// =====================================================
 // GET ALL ACTIVE SCHEMES
 // =====================================================
 
@@ -240,8 +276,8 @@ app.post("/api/savings", async (req, res) => {
         if (
             !user_id ||
             !scheme_id ||
-            !deposited_amount ||
-            !target_amount
+            deposited_amount === undefined || deposited_amount === null ||
+            target_amount === undefined || target_amount === null
         ) {
             return res.status(400).json({
                 success: false,
@@ -585,6 +621,7 @@ app.post("/api/payments", async (req, res) => {
 // =====================================================
 
 app.post("/api/payments/process", async (req, res) => {
+    let connection;
     try {
         const {
             user_id,
@@ -594,7 +631,7 @@ app.post("/api/payments/process", async (req, res) => {
             payment_method
         } = req.body;
 
-        if (!user_id || !scheme_id || !amount || !target_amount) {
+        if (!user_id || !scheme_id || amount === undefined || amount === null || target_amount === undefined || target_amount === null) {
             return res.status(400).json({
                 success: false,
                 message: "User ID, Scheme ID, deposit amount, and target amount are required."
@@ -604,7 +641,7 @@ app.post("/api/payments/process", async (req, res) => {
         const numericAmount = Number(amount);
         const numericTarget = Number(target_amount);
 
-        if (isNaN(numericAmount) || numericAmount <= 0) {
+        if (isNaN(numericAmount) || numericAmount < 0) {
             return res.status(400).json({
                 success: false,
                 message: "Please enter a valid deposit amount."
@@ -618,13 +655,17 @@ app.post("/api/payments/process", async (req, res) => {
             });
         }
 
+        // Acquire dedicated connection for transaction
+        connection = await pool.getConnection();
+
         // 1. Verify User exists
-        const [users] = await pool.query(
+        const [users] = await connection.query(
             "SELECT id FROM users WHERE id = ?",
             [user_id]
         );
 
         if (users.length === 0) {
+            connection.release();
             return res.status(404).json({
                 success: false,
                 message: "User not found. Please log in again."
@@ -632,12 +673,13 @@ app.post("/api/payments/process", async (req, res) => {
         }
 
         // 2. Verify Scheme exists
-        const [schemes] = await pool.query(
+        const [schemes] = await connection.query(
             "SELECT * FROM schemes WHERE id = ? AND status = TRUE",
             [scheme_id]
         );
 
         if (schemes.length === 0) {
+            connection.release();
             return res.status(404).json({
                 success: false,
                 message: "Savings scheme not found or inactive."
@@ -651,6 +693,7 @@ app.post("/api/payments/process", async (req, res) => {
         const maxAmt = scheme.maximum_amount ? Number(scheme.maximum_amount) : null;
 
         if (numericAmount < minAmt) {
+            connection.release();
             return res.status(400).json({
                 success: false,
                 message: `Minimum deposit for ${scheme.name} is ₹${minAmt.toLocaleString('en-IN')}.`
@@ -658,11 +701,15 @@ app.post("/api/payments/process", async (req, res) => {
         }
 
         if (maxAmt && numericAmount > maxAmt) {
+            connection.release();
             return res.status(400).json({
                 success: false,
                 message: `Maximum deposit for ${scheme.name} is ₹${maxAmt.toLocaleString('en-IN')}.`
             });
         }
+
+        // BEGIN TRANSACTION
+        await connection.beginTransaction();
 
         // 4. Calculate maturity date
         const startDate = new Date();
@@ -673,7 +720,7 @@ app.post("/api/payments/process", async (req, res) => {
         const formattedMaturityDate = maturityDate.toISOString().split("T")[0];
 
         // 5. Deactivate previous active plan for this user
-        await pool.query(
+        await connection.query(
             `UPDATE user_savings
              SET status = FALSE
              WHERE user_id = ? AND status = TRUE`,
@@ -681,7 +728,7 @@ app.post("/api/payments/process", async (req, res) => {
         );
 
         // 6. Create new active savings plan
-        const [savingsResult] = await pool.query(
+        const [savingsResult] = await connection.query(
             `INSERT INTO user_savings
             (user_id, scheme_id, deposited_amount, target_amount, start_date, maturity_date, status)
             VALUES (?, ?, ?, ?, ?, ?, TRUE)`,
@@ -701,7 +748,7 @@ app.post("/api/payments/process", async (req, res) => {
         const transactionId = `MMTXN${Date.now()}${Math.floor(1000 + Math.random() * 9000)}`;
 
         // 8. Record payment as SUCCESS in payments table
-        const [paymentResult] = await pool.query(
+        const [paymentResult] = await connection.query(
             `INSERT INTO payments
             (user_id, savings_id, amount, payment_status, transaction_id)
             VALUES (?, ?, ?, 'SUCCESS', ?)`,
@@ -712,6 +759,10 @@ app.post("/api/payments/process", async (req, res) => {
                 transactionId
             ]
         );
+
+        // COMMIT TRANSACTION
+        await connection.commit();
+        connection.release();
 
         res.status(201).json({
             success: true,
@@ -726,6 +777,14 @@ app.post("/api/payments/process", async (req, res) => {
         });
 
     } catch (error) {
+        if (connection) {
+            try {
+                await connection.rollback();
+            } catch (rbErr) {
+                console.error("Rollback error:", rbErr);
+            }
+            connection.release();
+        }
         console.error("Payment process error:", error);
         res.status(500).json({
             success: false,
@@ -772,6 +831,151 @@ app.get("/api/payments/user/:user_id", async (req, res) => {
             success: false,
             message: "Failed to fetch user payment history."
         });
+    }
+});
+
+
+// =====================================================
+// NOTIFICATIONS APIS
+// =====================================================
+
+function toDateString(d) {
+    if (!d) return null;
+    const dateObj = new Date(d);
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Get User Notifications (and run date-based generator check)
+app.get("/api/notifications/:user_id", async (req, res) => {
+    try {
+        const { user_id } = req.params;
+
+        // 1. Check active user savings plans for upcoming maturity dates (within 2 days)
+        const [activePlans] = await pool.query(
+            `SELECT us.id AS savings_id, us.maturity_date, s.name AS scheme_name,
+                    DATEDIFF(us.maturity_date, CURDATE()) AS days_remaining
+             FROM user_savings us
+             INNER JOIN schemes s ON us.scheme_id = s.id
+             WHERE us.user_id = ? AND us.status = TRUE`,
+            [user_id]
+        );
+
+        for (const plan of activePlans) {
+            const daysRem = Number(plan.days_remaining);
+            if (daysRem >= 0 && daysRem <= 2) {
+                const formattedMatDate = toDateString(plan.maturity_date);
+
+                // Check if notification already generated for this plan and date
+                const [existingNotifs] = await pool.query(
+                    `SELECT id FROM notifications
+                     WHERE user_id = ? AND savings_id = ? AND scheduled_date = ?`,
+                    [user_id, plan.savings_id, formattedMatDate]
+                );
+
+                if (existingNotifs.length === 0) {
+                    const dueMsg = daysRem === 0 
+                        ? `Your payment for ${plan.scheme_name} is due today.`
+                        : `Your payment for ${plan.scheme_name} is due in ${daysRem} day${daysRem === 1 ? '' : 's'}.`;
+
+                    await pool.query(
+                        `INSERT INTO notifications
+                         (user_id, savings_id, notification_type, title, message, scheduled_date)
+                         VALUES (?, ?, 'UPCOMING_DUE', 'Upcoming Payment', ?, ?)`,
+                        [user_id, plan.savings_id, dueMsg, formattedMatDate]
+                    );
+                }
+            }
+        }
+
+        // 2. Fetch all notifications for user
+        const [notifications] = await pool.query(
+            `SELECT id, user_id, savings_id, notification_type, title, message, scheduled_date, is_read, shown_date, created_at
+             FROM notifications
+             WHERE user_id = ?
+             ORDER BY id DESC`,
+            [user_id]
+        );
+
+        const unreadCount = notifications.filter(n => !n.is_read).length;
+
+        // 3. Determine if a popup toast should be shown today
+        const todayStr = toDateString(new Date());
+        const popupCandidate = notifications.find(n => {
+            if (n.is_read) return false;
+            if (!n.shown_date) return true;
+            const shownStr = toDateString(n.shown_date);
+            return shownStr !== todayStr;
+        });
+
+        res.json({
+            success: true,
+            notifications: notifications,
+            unreadCount: unreadCount,
+            popupNotification: popupCandidate || null
+        });
+
+    } catch (error) {
+        console.error("Notifications fetch error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch notifications."
+        });
+    }
+});
+
+// Dismiss Popup (Mark shown_date as today so popup won't show again today)
+app.post("/api/notifications/:id/dismiss", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const todayStr = toDateString(new Date());
+
+        await pool.query(
+            `UPDATE notifications SET shown_date = ? WHERE id = ?`,
+            [todayStr, id]
+        );
+
+        res.json({ success: true, message: "Notification popup dismissed." });
+    } catch (error) {
+        console.error("Dismiss notification error:", error);
+        res.status(500).json({ success: false, message: "Failed to dismiss notification." });
+    }
+});
+
+// Mark Notification as Read
+app.post("/api/notifications/:id/read", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const todayStr = toDateString(new Date());
+
+        await pool.query(
+            `UPDATE notifications SET is_read = TRUE, shown_date = ? WHERE id = ?`,
+            [todayStr, id]
+        );
+
+        res.json({ success: true, message: "Notification marked as read." });
+    } catch (error) {
+        console.error("Read notification error:", error);
+        res.status(500).json({ success: false, message: "Failed to mark notification as read." });
+    }
+});
+
+// Mark All Notifications as Read
+app.post("/api/notifications/read-all/:user_id", async (req, res) => {
+    try {
+        const { user_id } = req.params;
+
+        await pool.query(
+            `UPDATE notifications SET is_read = TRUE WHERE user_id = ?`,
+            [user_id]
+        );
+
+        res.json({ success: true, message: "All notifications marked as read." });
+    } catch (error) {
+        console.error("Read all notifications error:", error);
+        res.status(500).json({ success: false, message: "Failed to mark all notifications as read." });
     }
 });
 

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account — MoneyMint</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --green: #2E6B5E;
+            --green-dark: #1E4F45;
+            --green-light: #EAF5F1;
+            --green-soft: #F3F9F6;
+
+            --cream: #FAFAF8;
+            --white: #FFFFFF;
+
+            --text: #1A1A18;
+            --text-secondary: #4A4A44;
+            --muted: #77776F;
+
+            --border: #E8E2D6;
+            --border-light: #F0EEE8;
+
+            --danger: #C0392B;
+            --danger-light: #FFF1EF;
+
+            --shadow: 0 10px 30px rgba(46, 107, 94, 0.08);
+
+            --sidebar-width: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 10px 30px;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .brand-name {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-link {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            padding: 13px 14px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .nav-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .logout-button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--danger);
+            padding: 12px 14px;
+            border-radius: 11px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .logout-button:hover {
+            background: var(--danger-light);
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 32px 40px 60px;
+            max-width: 900px;
+        }
+
+        .topbar {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* PROFILE CARDS */
+        .profile-header-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .avatar-large {
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            background: var(--green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .user-header-info h2 {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .user-header-info p {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .badges {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .badge {
+            background: var(--green-light);
+            color: var(--green);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+        }
+
+        .card-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .back-dashboard-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .back-dashboard-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+            background: var(--green-light);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 70px; padding: 16px 10px; }
+            .brand-name, .nav-link span:not(.nav-icon), .logout-button span:not(.nav-icon) { display: none; }
+            .main { margin-left: 70px; padding: 20px; }
+            .profile-header-card { flex-direction: column; text-align: center; }
+            .badges { justify-content: center; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="../assets/images/logo.jpg" alt="MoneyMint Logo">
+            <span class="brand-name">MoneyMint</span>
+        </div>
+
+        <nav class="nav">
+            <a href="dashboard.html" class="nav-link">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="schemes.html" class="nav-link">
+                <span class="nav-icon">◈</span>
+                <span>Savings Schemes</span>
+            </a>
+            <a href="transactions.html" class="nav-link">
+                <span class="nav-icon">↔</span>
+                <span>Transactions</span>
+            </a>
+            <a href="profile.html" class="nav-link active">
+                <span class="nav-icon">◎</span>
+                <span>My Account</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button type="button" class="logout-button" id="logout-button">
+                <span class="nav-icon">↪</span>
+                <span>Sign Out</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1 class="page-title">My Account</h1>
+            <p class="page-subtitle">Your MoneyMint profile and account credentials.</p>
+        </header>
+
+        <!-- USER HEADER CARD -->
+        <div class="profile-header-card">
+            <div class="avatar-large" id="avatar-initial">U</div>
+            <div class="user-header-info">
+                <h2 id="prof-full-name">Loading...</h2>
+                <p id="prof-email">Loading...</p>
+                <div class="badges">
+                    <span class="badge" id="prof-account-id">MM-000000</span>
+                    <span class="badge" style="background: #FFF8E7; color: #B7791F;">Email verification pending</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILS CARD -->
+        <section class="card">
+            <h3 class="card-title">Personal &amp; Account Details</h3>
+
+            <div class="detail-row">
+                <span class="detail-label">Full Name</span>
+                <span class="detail-value" id="det-name">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Email Address</span>
+                <span class="detail-value" id="det-email">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Mobile Number</span>
+                <span class="detail-value" id="det-mobile">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Account / User ID</span>
+                <span class="detail-value" id="det-id">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Member Since</span>
+                <span class="detail-value" id="det-created">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Verification Status</span>
+                <span class="detail-value" style="color: #B7791F;" id="det-verification-status">Email verification pending</span>
+            </div>
+        </section>
+
+        <div>
+            <a href="dashboard.html" class="back-dashboard-btn">
+                &larr; Return to Dashboard
+            </a>
+        </div>
+    </main>
+
+</div>
+
+<!-- SCRIPTS -->
+<script type="module">
+import { AuthService } from "../assets/js/auth.js";
+
+const API_URL = "http://localhost:5000";
+const $ = (id) => document.getElementById(id);
+
+AuthService.requireAuth();
+const user = AuthService.getCurrentUser();
+
+$("logout-button").addEventListener("click", () => AuthService.logout());
+
+function formatDate(dateValue) {
+    if (!dateValue) return "—";
+    const date = new Date(dateValue);
+    if (isNaN(date.getTime())) return "—";
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+}
+
+async function loadProfile() {
+    if (!user || !user.id) return;
+
+    try {
+        const response = await fetch(`${API_URL}/api/user/${user.id}`);
+        const data = await response.json();
+
+        let userData = user;
+        if (data.success && data.user) {
+            userData = data.user;
+        }
+
+        const fullName = userData.full_name || userData.name || "User";
+        const email = userData.email || "—";
+        const mobile = userData.mobile || "Not provided";
+        const uid = userData.id ? `MM-${String(userData.id).padStart(6, '0')}` : "—";
+        const createdOn = formatDate(userData.created_at);
+
+        $("avatar-initial").textContent = fullName.charAt(0).toUpperCase();
+        $("prof-full-name").textContent = fullName;
+        $("prof-email").textContent = email;
+        $("prof-account-id").textContent = uid;
+
+        $("det-name").textContent = fullName;
+        $("det-email").textContent = email;
+        $("det-mobile").textContent = mobile;
+        $("det-id").textContent = uid;
+        $("det-created").textContent = createdOn !== "—" ? createdOn : "Active Member";
+
+    } catch (err) {
+        console.error("Profile load error:", err);
+        const fullName = user.name || user.full_name || "User";
+        $("avatar-initial").textContent = fullName.charAt(0).toUpperCase();
+        $("prof-full-name").textContent = fullName;
+        $("prof-email").textContent = user.email || "—";
+        $("det-name").textContent = fullName;
+        $("det-email").textContent = user.email || "—";
+        $("det-mobile").textContent = user.mobile || "Not provided";
+        $("det-id").textContent = user.id ? `MM-${String(user.id).padStart(6, '0')}` : "—";
+    }
+}
+
+loadProfile();
+</script>
+
+</body>
+</html>

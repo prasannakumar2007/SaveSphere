@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Savings Schemes — MoneyMint</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --green: #2E6B5E;
+            --green-dark: #1E4F45;
+            --green-light: #EAF5F1;
+            --green-soft: #F3F9F6;
+
+            --cream: #FAFAF8;
+            --white: #FFFFFF;
+
+            --text: #1A1A18;
+            --text-secondary: #4A4A44;
+            --muted: #77776F;
+
+            --border: #E8E2D6;
+            --border-light: #F0EEE8;
+
+            --danger: #C0392B;
+            --danger-light: #FFF1EF;
+
+            --shadow: 0 10px 30px rgba(46, 107, 94, 0.08);
+            --shadow-hover: 0 14px 35px rgba(46, 107, 94, 0.13);
+
+            --sidebar-width: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button, input {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 10px 30px;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .brand-name {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-link {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            padding: 13px 14px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .nav-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .logout-button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--danger);
+            padding: 12px 14px;
+            border-radius: 11px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .logout-button:hover {
+            background: var(--danger-light);
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 32px 40px 60px;
+            max-width: 1200px;
+        }
+
+        .topbar {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* SCHEME GRID */
+        .scheme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .scheme-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .scheme-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .scheme-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .scheme-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .scheme-badge {
+            background: var(--green-light);
+            color: var(--green);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .scheme-description {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .scheme-metrics {
+            background: var(--green-soft);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .metric-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .metric-value.highlight {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .scheme-action-btn {
+            width: 100%;
+            border: none;
+            background: var(--green);
+            color: var(--white);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .scheme-action-btn:hover {
+            background: var(--green-dark);
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 26, 24, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: var(--white);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 480px;
+            padding: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: scale(0.95);
+            transition: transform 0.2s ease;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--muted);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-description {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .modal-info-box {
+            background: var(--green-soft);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 14px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--green);
+        }
+
+        .form-help {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+            display: block;
+        }
+
+        .modal-error {
+            background: var(--danger-light);
+            color: var(--danger);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .proceed-btn {
+            width: 100%;
+            border: none;
+            background: var(--green);
+            color: var(--white);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            transition: background 0.2s ease;
+        }
+
+        .proceed-btn:hover {
+            background: var(--green-dark);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 70px; padding: 16px 10px; }
+            .brand-name, .nav-link span:not(.nav-icon), .logout-button span:not(.nav-icon) { display: none; }
+            .main { margin-left: 70px; padding: 20px; }
+            .scheme-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="../assets/images/logo.jpg" alt="MoneyMint Logo">
+            <span class="brand-name">MoneyMint</span>
+        </div>
+
+        <nav class="nav">
+            <a href="dashboard.html" class="nav-link">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="schemes.html" class="nav-link active">
+                <span class="nav-icon">◈</span>
+                <span>Savings Schemes</span>
+            </a>
+            <a href="transactions.html" class="nav-link">
+                <span class="nav-icon">↔</span>
+                <span>Transactions</span>
+            </a>
+            <a href="profile.html" class="nav-link">
+                <span class="nav-icon">◎</span>
+                <span>My Account</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button type="button" class="logout-button" id="logout-button">
+                <span class="nav-icon">↪</span>
+                <span>Sign Out</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="topbar">
+            <h1 class="page-title">Savings Schemes</h1>
+            <p class="page-subtitle">Choose a high-yield MoneyMint deposit plan tailored to your financial goals.</p>
+        </header>
+
+        <!-- SCHEMES CONTAINER -->
+        <div class="scheme-grid" id="scheme-container">
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--muted);">
+                Loading available schemes from database...
+            </div>
+        </div>
+
+        <!-- INTEREST & SAVINGS CALCULATOR -->
+        <section style="margin-top: 48px; background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 32px; box-shadow: var(--shadow);">
+            <div style="margin-bottom: 24px;">
+                <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; color: var(--text);">Interest &amp; Savings Calculator</h2>
+                <p style="font-size: 14px; color: var(--muted); margin-top: 4px;">Calculate your projected returns based on selected scheme and deposit amount.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px;">
+                <div>
+                    <div class="form-group">
+                        <label class="form-label" for="calc-scheme-select">Select Savings Scheme</label>
+                        <select id="calc-scheme-select" class="form-input" style="background: var(--white); height: 46px;">
+                            <option value="">-- Select a Scheme --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calc-deposit-amount">Deposit Amount (₹)</label>
+                        <input type="number" id="calc-deposit-amount" class="form-input" min="0" step="1" placeholder="Enter deposit amount" value="10000">
+                        <span class="form-help" id="calc-scheme-limits">Select a scheme to view limits</span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; background: var(--green-soft); padding: 14px; border-radius: 12px; border: 1px solid var(--border-light);">
+                        <div>
+                            <span style="font-size: 11px; color: var(--muted); display: block; font-weight: 600;">INTEREST RATE</span>
+                            <span style="font-size: 16px; font-weight: 800; color: var(--green);" id="calc-rate-display">—</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 11px; color: var(--muted); display: block; font-weight: 600;">DURATION</span>
+                            <span style="font-size: 16px; font-weight: 700; color: var(--text);" id="calc-duration-display">—</span>
+                        </div>
+                    </div>
+
+                    <div id="calc-error" class="modal-error" style="margin-bottom: 16px;"></div>
+
+                    <button type="button" class="proceed-btn" id="calc-btn">
+                        Calculate Estimated Returns
+                    </button>
+                </div>
+
+                <div style="background: var(--green-soft); border: 1px solid var(--border-light); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 16px;">Calculation Results</h3>
+                        
+                        <div style="margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed var(--border);">
+                            <span style="font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 600; display: block;">Selected Scheme</span>
+                            <span style="font-size: 15px; font-weight: 700; color: var(--text);" id="res-scheme-name">None Selected</span>
+                        </div>
+
+                        <div style="margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed var(--border);">
+                            <span style="font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 600; display: block;">Initial Deposit Amount</span>
+                            <span style="font-size: 16px; font-weight: 700; color: var(--text);" id="res-deposit-amount">₹0</span>
+                        </div>
+
+                        <div style="margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed var(--border);">
+                            <span style="font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 600; display: block;">Estimated Interest</span>
+                            <span style="font-size: 18px; font-weight: 800; color: var(--green);" id="res-est-interest">₹0</span>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <span style="font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 600; display: block;">Estimated Maturity Amount</span>
+                            <span style="font-size: 24px; font-weight: 800; color: var(--green-dark);" id="res-maturity-amount">₹0</span>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 12px; color: var(--muted); font-style: italic; background: rgba(255,255,255,0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-light);">
+                        ℹ️ Estimated values for demonstration purposes.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<!-- SCHEME DETAILS MODAL -->
+<div class="modal-overlay" id="scheme-modal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title" id="modal-scheme-name">Scheme Details</h2>
+                <div style="font-size: 12px; color: var(--green); font-weight: 700; margin-top: 2px;">MoneyMint Savings Plan</div>
+            </div>
+            <button type="button" class="modal-close" id="modal-close-btn">&times;</button>
+        </div>
+
+        <p class="modal-description" id="modal-scheme-desc">Loading scheme description...</p>
+
+        <div class="modal-info-box" id="modal-scheme-info">
+            <!-- Dynamic info -->
+        </div>
+
+        <div class="modal-error" id="modal-error"></div>
+
+        <form id="scheme-form" onsubmit="return false;">
+            <div class="form-group">
+                <label class="form-label" for="deposit-amount">Initial Deposit Amount (₹)</label>
+                <input type="number" id="deposit-amount" class="form-input" min="0" step="1" placeholder="Enter deposit amount">
+                <span class="form-help" id="deposit-help">Allowed deposit limits</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="target-amount">Savings Target Goal (₹)</label>
+                <input type="number" id="target-amount" class="form-input" min="0" step="1" placeholder="Enter savings target goal">
+                <span class="form-help">Goal amount you aim to accumulate</span>
+            </div>
+
+            <button type="button" class="proceed-btn" id="proceed-payment-btn">
+                Proceed to Payment &rarr;
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<script type="module">
+import { AuthService } from "../assets/js/auth.js";
+
+const API_URL = "http://localhost:5000";
+const $ = (id) => document.getElementById(id);
+
+AuthService.requireAuth();
+
+$("logout-button").addEventListener("click", () => AuthService.logout());
+
+let selectedScheme = null;
+let allSchemes = [];
+
+async function loadSchemes() {
+    const container = $("scheme-container");
+    try {
+        const response = await fetch(`${API_URL}/api/schemes`);
+        const data = await response.json();
+
+        if (!data.success || !Array.isArray(data.schemes)) {
+            throw new Error("Failed to load schemes.");
+        }
+
+        allSchemes = data.schemes;
+        container.innerHTML = "";
+
+        // Populate calculator dropdown
+        const calcSelect = $("calc-scheme-select");
+        calcSelect.innerHTML = `<option value="">-- Select a Scheme --</option>`;
+
+        allSchemes.forEach(scheme => {
+            const minAmt = Number(scheme.minimum_amount);
+            const maxAmt = scheme.maximum_amount ? Number(scheme.maximum_amount) : null;
+            const rate = Number(scheme.interest_rate);
+
+            // Scheme Card
+            const card = document.createElement("div");
+            card.className = "scheme-card";
+            card.innerHTML = `
+                <div class="scheme-header">
+                    <h3 class="scheme-title">${scheme.name}</h3>
+                    <span class="scheme-badge">${rate}% p.a.</span>
+                </div>
+                <p class="scheme-description">${scheme.description || 'High-yield deposit plan.'}</p>
+                <div class="scheme-metrics">
+                    <div>
+                        <span class="metric-label">Interest Rate</span>
+                        <span class="metric-value highlight">${rate}%</span>
+                    </div>
+                    <div>
+                        <span class="metric-label">Duration</span>
+                        <span class="metric-value">${scheme.duration_months} Months</span>
+                    </div>
+                    <div>
+                        <span class="metric-label">Min Deposit</span>
+                        <span class="metric-value">₹${minAmt.toLocaleString('en-IN')}</span>
+                    </div>
+                    <div>
+                        <span class="metric-label">Payout Type</span>
+                        <span class="metric-value">${scheme.payout_type || 'At Maturity'}</span>
+                    </div>
+                </div>
+                <button type="button" class="scheme-action-btn">View Details &amp; Start Plan</button>
+            `;
+
+            card.querySelector(".scheme-action-btn").addEventListener("click", () => openModal(scheme));
+            container.appendChild(card);
+
+            // Add Option to Calculator
+            const opt = document.createElement("option");
+            opt.value = scheme.id;
+            opt.textContent = `${scheme.name} (${rate}% p.a. - ${scheme.duration_months}m)`;
+            calcSelect.appendChild(opt);
+        });
+
+        // Select first scheme in calculator by default
+        if (allSchemes.length > 0) {
+            calcSelect.value = allSchemes[0].id;
+            onCalcSchemeChange();
+            runCalculator();
+        }
+
+    } catch (err) {
+        console.error("Schemes error:", err);
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--danger);">Failed to load savings schemes. Please ensure the backend is running.</div>`;
+    }
+}
+
+function onCalcSchemeChange() {
+    const calcSelect = $("calc-scheme-select");
+    const schemeId = Number(calcSelect.value);
+    const scheme = allSchemes.find(s => Number(s.id) === schemeId);
+
+    if (!scheme) {
+        $("calc-rate-display").textContent = "—";
+        $("calc-duration-display").textContent = "—";
+        $("calc-scheme-limits").textContent = "Select a scheme to view limits";
+        return;
+    }
+
+    const minAmt = Number(scheme.minimum_amount);
+    const maxAmt = scheme.maximum_amount ? Number(scheme.maximum_amount) : null;
+    const rate = Number(scheme.interest_rate);
+
+    $("calc-rate-display").textContent = `${rate}% p.a.`;
+    $("calc-duration-display").textContent = `${scheme.duration_months} Months`;
+    $("calc-scheme-limits").textContent = maxAmt 
+        ? `Deposit limits: ₹${minAmt.toLocaleString('en-IN')} to ₹${maxAmt.toLocaleString('en-IN')}`
+        : `Minimum deposit: ₹${minAmt.toLocaleString('en-IN')}`;
+}
+
+$("calc-scheme-select").addEventListener("change", () => {
+    onCalcSchemeChange();
+    runCalculator();
+});
+
+function runCalculator() {
+    const errBox = $("calc-error");
+    errBox.style.display = "none";
+
+    const schemeId = Number($("calc-scheme-select").value);
+    const scheme = allSchemes.find(s => Number(s.id) === schemeId);
+
+    if (!scheme) {
+        errBox.textContent = "Please select a valid savings scheme.";
+        errBox.style.display = "block";
+        return;
+    }
+
+    const amtVal = Number($("calc-deposit-amount").value);
+    const minAmt = Number(scheme.minimum_amount);
+    const maxAmt = scheme.maximum_amount ? Number(scheme.maximum_amount) : null;
+    const rate = Number(scheme.interest_rate);
+    const durationMonths = Number(scheme.duration_months);
+
+    if (isNaN(amtVal) || amtVal < 0) {
+        errBox.textContent = "Deposit amount cannot be negative or invalid.";
+        errBox.style.display = "block";
+        return;
+    }
+
+    if (amtVal < minAmt) {
+        errBox.textContent = `Minimum deposit for ${scheme.name} is ₹${minAmt.toLocaleString('en-IN')}.`;
+        errBox.style.display = "block";
+        return;
+    }
+
+    if (maxAmt && amtVal > maxAmt) {
+        errBox.textContent = `Maximum deposit limit for ${scheme.name} is ₹${maxAmt.toLocaleString('en-IN')}.`;
+        errBox.style.display = "block";
+        return;
+    }
+
+    // Simple estimated interest calculation: Principal * Rate * Time(years)
+    const estInterest = (amtVal * rate * (durationMonths / 12)) / 100;
+    const maturityAmount = amtVal + estInterest;
+
+    $("res-scheme-name").textContent = scheme.name;
+    $("res-deposit-amount").textContent = `₹${amtVal.toLocaleString('en-IN')}`;
+    $("res-est-interest").textContent = `₹${Math.round(estInterest).toLocaleString('en-IN')}`;
+    $("res-maturity-amount").textContent = `₹${Math.round(maturityAmount).toLocaleString('en-IN')}`;
+}
+
+$("calc-btn").addEventListener("click", runCalculator);
+$("calc-deposit-amount").addEventListener("input", runCalculator);
+
+function openModal(scheme) {
+    selectedScheme = scheme;
+    const minAmt = Number(scheme.minimum_amount);
+    const maxAmt = scheme.maximum_amount ? Number(scheme.maximum_amount) : null;
+
+    $("modal-scheme-name").textContent = scheme.name;
+    $("modal-scheme-desc").textContent = scheme.description || "";
+
+    $("modal-scheme-info").innerHTML = `
+        <div>
+            <span style="font-size: 11px; color: var(--muted); display: block;">INTEREST</span>
+            <span style="font-size: 15px; font-weight: 700; color: var(--green);">${scheme.interest_rate}% p.a.</span>
+        </div>
+        <div>
+            <span style="font-size: 11px; color: var(--muted); display: block;">DURATION</span>
+            <span style="font-size: 15px; font-weight: 700;">${scheme.duration_months} Months</span>
+        </div>
+        <div>
+            <span style="font-size: 11px; color: var(--muted); display: block;">MIN DEPOSIT</span>
+            <span style="font-size: 15px; font-weight: 700;">₹${minAmt.toLocaleString('en-IN')}</span>
+        </div>
+        <div>
+            <span style="font-size: 11px; color: var(--muted); display: block;">PAYOUT</span>
+            <span style="font-size: 15px; font-weight: 700;">${scheme.payout_type || 'At Maturity'}</span>
+        </div>
+    `;
+
+    $("deposit-help").textContent = maxAmt 
+        ? `Allowed deposit: ₹${minAmt.toLocaleString('en-IN')} to ₹${maxAmt.toLocaleString('en-IN')}`
+        : `Minimum deposit: ₹${minAmt.toLocaleString('en-IN')}`;
+
+    $("deposit-amount").value = minAmt;
+    $("target-amount").value = minAmt > 0 ? minAmt * 5 : 5000;
+    $("modal-error").style.display = "none";
+
+    $("scheme-modal").classList.add("show");
+}
+
+function closeModal() {
+    $("scheme-modal").classList.remove("show");
+    selectedScheme = null;
+}
+
+$("modal-close-btn").addEventListener("click", closeModal);
+$("scheme-modal").addEventListener("click", (e) => {
+    if (e.target === $("scheme-modal")) closeModal();
+});
+
+// PROCEED TO PAYMENT HANDLER
+function handleProceedToPayment(e) {
+    if (e) e.preventDefault();
+    const errorBox = $("modal-error");
+    errorBox.style.display = "none";
+
+    if (!selectedScheme) return;
+
+    const depVal = Number($("deposit-amount").value);
+    const tgtVal = Number($("target-amount").value);
+
+    const minAmt = Number(selectedScheme.minimum_amount);
+    const maxAmt = selectedScheme.maximum_amount ? Number(selectedScheme.maximum_amount) : null;
+
+    if (isNaN(depVal) || depVal < 0) {
+        errorBox.textContent = "Please enter a valid deposit amount.";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    if (depVal < minAmt) {
+        errorBox.textContent = `Minimum deposit for ${selectedScheme.name} is ₹${minAmt.toLocaleString('en-IN')}.`;
+        errorBox.style.display = "block";
+        return;
+    }
+
+    if (maxAmt && depVal > maxAmt) {
+        errorBox.textContent = `Maximum deposit for ${selectedScheme.name} is ₹${maxAmt.toLocaleString('en-IN')}.`;
+        errorBox.style.display = "block";
+        return;
+    }
+
+    if (isNaN(tgtVal) || tgtVal < depVal) {
+        errorBox.textContent = "Target goal amount must be equal to or greater than the deposit amount.";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    // Redirect directly to payment page with scheme details
+    const schemeId = selectedScheme.id;
+    window.location.href = `payment.html?scheme_id=${schemeId}&amount=${depVal}&target_amount=${tgtVal}`;
+}
+
+$("proceed-payment-btn").addEventListener("click", handleProceedToPayment);
+$("scheme-form").addEventListener("submit", handleProceedToPayment);
+
+loadSchemes();
+</script>
+
+</body>
+</html>

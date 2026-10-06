@@ -123,7 +123,7 @@
             gap: 6px;
         }
 
-        .nav-button {
+        .nav-link {
             width: 100%;
             border: none;
             background: transparent;
@@ -136,25 +136,34 @@
 
             font-size: 14px;
             font-weight: 600;
+            text-decoration: none;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
 
             transition: all 0.2s ease;
         }
 
-        .nav-button:hover,
-        .nav-button.active {
+        .nav-link:hover,
+        .nav-link.active {
             background: var(--green-light);
             color: var(--green);
         }
 
         .nav-icon {
             display: inline-flex;
-            width: 20px;
-            margin-right: 9px;
+            align-items: center;
             justify-content: center;
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
         }
 
         .sidebar-bottom {
             margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
         }
 
         .logout-button {
@@ -163,7 +172,7 @@
             background: transparent;
             color: var(--danger);
 
-            padding: 13px 14px;
+            padding: 12px 14px;
             border-radius: 11px;
 
             text-align: left;
@@ -171,7 +180,11 @@
             font-size: 14px;
             font-weight: 600;
 
-            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            transition: background 0.2s ease;
         }
 
         .logout-button:hover {
@@ -182,26 +195,26 @@
 
         .main {
             margin-left: var(--sidebar-width);
-            width: calc(100% - var(--sidebar-width));
-            padding: 30px;
+            flex: 1;
+            padding: 32px 40px 60px;
+            max-width: 1200px;
         }
-
-        /* TOP BAR */
 
         .topbar {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             gap: 20px;
-            margin-bottom: 28px;
+
+            margin-bottom: 32px;
         }
 
         .welcome-title {
             font-family: "Plus Jakarta Sans", sans-serif;
             font-size: 28px;
-            line-height: 1.25;
             font-weight: 800;
-            margin-bottom: 7px;
+            color: var(--text);
+            letter-spacing: -0.5px;
         }
 
         .welcome-title span {
@@ -209,94 +222,55 @@
         }
 
         .welcome-subtitle {
-            color: var(--muted);
             font-size: 14px;
+            color: var(--muted);
+            margin-top: 4px;
         }
 
         .top-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .refresh-button {
-            width: 43px;
-            height: 43px;
-
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             border: 1px solid var(--border);
             background: var(--white);
-            color: var(--green);
+            color: var(--text);
 
-            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            font-size: 21px;
-
-            transition: 0.2s;
+            font-size: 18px;
+            transition: all 0.2s ease;
         }
 
         .refresh-button:hover {
-            background: var(--green-light);
-            transform: rotate(15deg);
-        }
-
-        /* CARD */
-
-        .card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 17px;
-            padding: 22px;
-            box-shadow: var(--shadow);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .card-title {
-            font-family: "Plus Jakarta Sans", sans-serif;
-            font-size: 17px;
-            font-weight: 800;
-        }
-
-        .secondary-button {
-            border: none;
-            background: var(--green-light);
+            border-color: var(--green);
             color: var(--green);
-
-            padding: 9px 13px;
-            border-radius: 9px;
-
-            font-size: 12px;
-            font-weight: 700;
-
-            transition: 0.2s;
+            transform: rotate(45deg);
         }
 
-        .secondary-button:hover {
-            background: #DCEEE8;
-        }
-
-        /* SUMMARY */
+        /* SUMMARY GRID */
 
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 22px;
+            gap: 20px;
+            margin-bottom: 32px;
         }
 
         .summary-card {
             background: var(--white);
             border: 1px solid var(--border);
-            border-radius: 17px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 22px;
             box-shadow: var(--shadow);
-            transition: 0.2s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .summary-card:hover {
@@ -306,96 +280,166 @@
 
         .summary-top {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            justify-content: space-between;
+            margin-bottom: 12px;
         }
 
         .summary-label {
-            color: var(--muted);
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .summary-icon {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--green-light);
+            color: var(--green);
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border-radius: 10px;
-
-            background: var(--green-light);
-            color: var(--green);
-
-            font-size: 17px;
+            font-size: 15px;
+            font-weight: 700;
         }
 
         .summary-value {
             font-family: "Plus Jakarta Sans", sans-serif;
-            font-size: 25px;
+            font-size: 26px;
             font-weight: 800;
             color: var(--text);
-            margin-bottom: 7px;
+            margin-bottom: 6px;
         }
 
         .summary-note {
-            color: var(--muted);
             font-size: 12px;
+            color: var(--muted);
         }
 
-        /* TWO COLUMN */
+        /* CARD STYLES */
 
-        .two-column {
-            display: grid;
-            grid-template-columns: 1.55fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
         }
 
-        /* EMPTY */
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .card-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .secondary-button {
+            border: 1px solid var(--border);
+            background: var(--cream);
+            color: var(--text);
+
+            padding: 8px 16px;
+            border-radius: 10px;
+
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            transition: all 0.2s ease;
+        }
+
+        .secondary-button:hover {
+            border-color: var(--green);
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .primary-button {
+            border: none;
+            background: var(--green);
+            color: var(--white);
+
+            padding: 10px 20px;
+            border-radius: 11px;
+
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(46, 107, 94, 0.2);
+        }
+
+        .primary-button:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+        }
+
+        /* EMPTY STATE */
 
         .empty-state {
             text-align: center;
-            padding: 30px 20px;
+            padding: 36px 20px;
         }
 
         .empty-icon {
             width: 56px;
             height: 56px;
-
-            margin: 0 auto 14px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 15px;
-
+            border-radius: 18px;
             background: var(--green-light);
             color: var(--green);
 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 800;
+
+            margin-bottom: 16px;
         }
 
         .empty-title {
-            font-size: 15px;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 7px;
+            color: var(--text);
+            margin-bottom: 8px;
         }
 
         .empty-description {
-            color: var(--muted);
             font-size: 13px;
-            line-height: 1.6;
-            max-width: 390px;
-            margin: auto;
+            color: var(--muted);
+            max-width: 360px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
         }
 
-        /* PLAN */
+        /* PLAN DETAILS */
 
         .plan-details {
             display: none;
@@ -407,17 +451,16 @@
 
         .plan-top {
             display: flex;
-            justify-content: space-between;
             align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 22px;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
         .plan-name {
             font-family: "Plus Jakarta Sans", sans-serif;
-            font-size: 21px;
+            font-size: 20px;
             font-weight: 800;
-            margin-bottom: 6px;
+            color: var(--text);
         }
 
         .plan-status {
@@ -425,15 +468,16 @@
             align-items: center;
             gap: 6px;
 
-            padding: 5px 9px;
-
-            border-radius: 20px;
-
             background: var(--green-light);
             color: var(--green);
 
-            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+
+            font-size: 12px;
             font-weight: 700;
+
+            margin-top: 6px;
         }
 
         .plan-status-dot {
@@ -448,517 +492,184 @@
         }
 
         .plan-interest-label {
-            color: var(--muted);
             font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
         .plan-interest-value {
-            color: var(--green);
-            font-size: 20px;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 22px;
             font-weight: 800;
+            color: var(--green);
         }
 
         .plan-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+            gap: 16px;
 
-        .plan-stat {
-            padding: 13px;
             background: var(--green-soft);
-            border-radius: 11px;
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 18px;
         }
 
         .plan-stat-label {
-            display: block;
+            font-size: 12px;
             color: var(--muted);
-            font-size: 11px;
-            margin-bottom: 5px;
+            display: block;
+            margin-bottom: 4px;
         }
 
         .plan-stat-value {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
+            color: var(--text);
         }
 
-        /* PROFILE */
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-        }
-
-        .avatar {
-            width: 58px;
-            height: 58px;
-
-            flex-shrink: 0;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: var(--green);
-            color: white;
-
-            font-size: 20px;
-            font-weight: 800;
-        }
-
-        .profile-name {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .profile-email {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .profile-details {
-            display: grid;
-            gap: 12px;
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-
-            padding-bottom: 11px;
-
-            border-bottom: 1px solid var(--border-light);
-
-            font-size: 13px;
-        }
-
-        .detail-label {
-            color: var(--muted);
-        }
-
-        .detail-value {
-            text-align: right;
-            font-weight: 600;
-            max-width: 60%;
-            overflow-wrap: anywhere;
-        }
-
-        .status-active {
-            color: var(--green);
-        }
-
-        /* PROGRESS */
-
-        .progress-card {
-            margin-bottom: 20px;
-        }
-
-        .progress-status {
-            color: var(--muted);
-            font-size: 12px;
-        }
+        /* PROGRESS SECTION */
 
         .progress-header {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 9px;
-            font-size: 13px;
+            margin-bottom: 10px;
         }
 
         .progress-label {
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
         }
 
         .progress-percent {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 16px;
+            font-weight: 800;
             color: var(--green);
-            font-weight: 700;
         }
 
         .progress-bar {
-            height: 10px;
-            background: #ECEAE4;
-            border-radius: 20px;
+            height: 12px;
+            border-radius: 6px;
+            background: var(--border-light);
             overflow: hidden;
+            margin-bottom: 12px;
         }
 
         .progress-fill {
-            width: 0%;
             height: 100%;
-            background: var(--green);
-            border-radius: 20px;
-            transition: width 0.5s ease;
+            width: 0%;
+            background: linear-gradient(90deg, var(--green), #3A8373);
+            border-radius: 6px;
+            transition: width 0.6s ease;
         }
 
         .progress-info {
             display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            color: var(--muted);
-            font-size: 11px;
-        }
-
-        /* SCHEMES */
-
-        .schemes-card {
-            margin-bottom: 20px;
-        }
-
-        .scheme-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .scheme-card {
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 17px;
-            transition: 0.2s;
-        }
-
-        .scheme-card:hover {
-            border-color: var(--green);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .scheme-icon {
-            width: 40px;
-            height: 40px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: var(--green-light);
-            color: var(--green);
-
-            border-radius: 11px;
-
-            margin-bottom: 13px;
-
-            font-size: 17px;
-        }
-
-        .scheme-name {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
-
-        .scheme-description {
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.55;
-            margin-bottom: 15px;
-        }
-
-        .scheme-meta {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 14px;
-        }
-
-        .scheme-meta-item {
-            background: var(--green-soft);
-            border-radius: 8px;
-            padding: 8px;
-        }
-
-        .scheme-meta-label {
-            display: block;
-            color: var(--muted);
-            font-size: 10px;
-            margin-bottom: 3px;
-        }
-
-        .scheme-meta-value {
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .scheme-button {
-            width: 100%;
-
-            border: none;
-
-            background: var(--green);
-            color: white;
-
-            border-radius: 9px;
-
-            padding: 9px 12px;
-
-            font-size: 12px;
-            font-weight: 700;
-
-            transition: 0.2s;
-        }
-
-        .scheme-button:hover {
-            background: var(--green-dark);
-        }
-
-        /* TRANSACTIONS */
-
-        .transaction-empty {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 35px 20px;
-        }
-
-        .transaction-icon {
-            width: 50px;
-            height: 50px;
-
-            border-radius: 14px;
-
-            background: var(--green-soft);
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 20px;
-
-            margin-bottom: 12px;
-        }
-
-        .transaction-empty-title {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .transaction-empty-text {
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.6;
-        }
-
-        .transaction-list {
-            display: none;
-        }
-
-        .transaction-list.visible {
-            display: block;
-        }
-
-        .transaction-item {
-            display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 15px;
-
-            padding: 14px 0;
-
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .transaction-item:last-child {
-            border-bottom: none;
-        }
-
-        .transaction-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .transaction-icon-small {
-            width: 38px;
-            height: 38px;
-
-            border-radius: 10px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: var(--green-light);
-            color: var(--green);
-        }
-
-        .transaction-title {
             font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 3px;
-        }
-
-        .transaction-date {
             color: var(--muted);
-            font-size: 11px;
-        }
-
-        .transaction-amount {
-            font-size: 13px;
-            font-weight: 800;
-            color: var(--green);
         }
 
         /* TOAST */
 
         .dashboard-toast {
             position: fixed;
-
-            right: 25px;
-            bottom: 25px;
-
-            z-index: 999;
-
+            bottom: 30px;
+            right: 30px;
             background: var(--text);
-            color: white;
-
-            padding: 13px 17px;
-
-            border-radius: 10px;
-
-            font-size: 13px;
-
-            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
-
-            opacity: 0;
-
-            transform: translateY(10px);
-
-            pointer-events: none;
-
-            transition: 0.25s;
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
         }
 
         .dashboard-toast.show {
+            display: block;
+        }
+
+        /* NOTIFICATION POPUP MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(26, 26, 24, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .modal-overlay.show {
             opacity: 1;
-            transform: translateY(0);
+            visibility: visible;
         }
 
-        .error-state {
-            text-align: center;
-            padding: 30px 20px;
+        .modal-card {
+            background: var(--white);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 440px;
+            padding: 26px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+            transform: scale(0.95);
+            transition: transform 0.2s ease;
         }
 
-        .error-state p {
-            color: var(--danger);
-            font-size: 13px;
-            margin-bottom: 12px;
+        .modal-overlay.show .modal-card {
+            transform: scale(1);
         }
 
-        .retry-button {
+        .proceed-btn {
             border: none;
             background: var(--green);
-            color: white;
-            padding: 9px 14px;
-            border-radius: 8px;
-            font-size: 12px;
+            color: var(--white);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
         }
 
-        /* RESPONSIVE */
+        .proceed-btn:hover {
+            background: var(--green-dark);
+        }
 
-        @media (max-width: 1150px) {
-
+        @media (max-width: 1024px) {
             .summary-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
-            .two-column {
-                grid-template-columns: 1fr;
-            }
-
-            .scheme-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
 
-        @media (max-width: 800px) {
-
+        @media (max-width: 768px) {
             .sidebar {
-                position: static;
-                width: 100%;
-                height: auto;
-
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-
-                padding: 15px;
+                width: 70px;
+                padding: 16px 10px;
             }
 
-            .app {
-                display: block;
-            }
-
-            .brand {
-                padding-bottom: 15px;
-            }
-
-            .nav {
-                flex-direction: row;
-                overflow-x: auto;
-                padding-bottom: 4px;
-            }
-
-            .nav-button {
-                white-space: nowrap;
-                width: auto;
-            }
-
-            .sidebar-bottom {
-                margin-top: 10px;
-            }
-
-            .logout-button {
-                width: auto;
+            .brand-name, .nav-link span:not(.nav-icon), .logout-button span:not(.nav-icon) {
+                display: none;
             }
 
             .main {
-                margin-left: 0;
-                width: 100%;
-                padding: 18px;
+                margin-left: 70px;
+                padding: 20px;
             }
-
-            .topbar {
-                align-items: flex-start;
-            }
-        }
-
-        @media (max-width: 600px) {
 
             .summary-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .scheme-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .plan-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .welcome-title {
-                font-size: 22px;
-            }
-
-            .welcome-subtitle {
-                font-size: 12px;
-            }
-
-            .card {
-                padding: 18px;
-            }
-
-            .scheme-meta {
                 grid-template-columns: 1fr;
             }
         }
@@ -971,691 +682,239 @@
 <div class="app">
 
     <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
         <div class="brand">
-
-            <img
-                src="../assets/images/logo.jpg"
-                alt="MoneyMint Logo"
-            >
-
-            <span class="brand-name">
-                MoneyMint
-            </span>
-
+            <img src="../assets/images/logo.jpg" alt="MoneyMint Logo">
+            <span class="brand-name">MoneyMint</span>
         </div>
 
-
         <nav class="nav">
-
-            <button
-                type="button"
-                class="nav-button active"
-                id="nav-dashboard"
-            >
+            <a href="dashboard.html" class="nav-link active">
                 <span class="nav-icon">⌂</span>
-                Dashboard
-            </button>
+                <span>Dashboard</span>
+            </a>
 
-
-            <button
-                type="button"
-                class="nav-button"
-                id="nav-schemes"
-            >
+            <a href="schemes.html" class="nav-link">
                 <span class="nav-icon">◈</span>
-                Savings Schemes
-            </button>
+                <span>Savings Schemes</span>
+            </a>
 
-
-            <button
-                type="button"
-                class="nav-button"
-                id="nav-transactions"
-            >
+            <a href="transactions.html" class="nav-link">
                 <span class="nav-icon">↔</span>
-                Transactions
-            </button>
+                <span>Transactions</span>
+            </a>
 
-
-            <button
-                type="button"
-                class="nav-button"
-                id="nav-profile"
-            >
+            <a href="profile.html" class="nav-link">
                 <span class="nav-icon">◎</span>
-                Profile
-            </button>
-
+                <span>My Account</span>
+            </a>
         </nav>
 
-
         <div class="sidebar-bottom">
-
-            <button
-                type="button"
-                class="logout-button"
-                id="logout-button"
-            >
+            <button type="button" class="logout-button" id="logout-button">
                 <span class="nav-icon">↪</span>
-                Sign Out
+                <span>Sign Out</span>
             </button>
-
         </div>
 
     </aside>
 
-
-    <!-- MAIN -->
-
+    <!-- MAIN CONTENT -->
     <main class="main">
 
         <!-- TOP BAR -->
-
         <header class="topbar">
-
             <div>
-
                 <h1 class="welcome-title">
-                    Welcome,
-                    <span id="user-name">User</span> 👋
+                    Welcome, <span id="user-name">User</span> 👋
                 </h1>
-
                 <p class="welcome-subtitle">
-                    Here's an overview of your MoneyMint account.
+                    Here's a live overview of your MoneyMint savings portfolio.
                 </p>
-
             </div>
-
 
             <div class="top-actions">
+                <div style="position: relative;">
+                    <button type="button" class="refresh-button" id="notif-bell-btn" title="Notifications">
+                        🔔
+                        <span id="notif-badge" style="display: none; position: absolute; top: -4px; right: -4px; background: var(--danger); color: var(--white); border-radius: 50%; width: 18px; height: 18px; font-size: 11px; font-weight: 800; text-align: center; line-height: 18px; border: 2px solid var(--white);">0</span>
+                    </button>
 
-                <button
-                    type="button"
-                    class="refresh-button"
-                    id="refresh-button"
-                    title="Refresh dashboard"
-                    aria-label="Refresh dashboard"
-                >
+                    <!-- NOTIFICATION DROPDOWN PANEL -->
+                    <div id="notif-panel" style="display: none; position: absolute; top: 52px; right: 0; width: 340px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); z-index: 1000; padding: 16px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--border-light); margin-bottom: 12px;">
+                            <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; color: var(--text);">Notifications</span>
+                            <button type="button" id="mark-all-read-btn" style="background: none; border: none; font-size: 12px; color: var(--green); font-weight: 700; cursor: pointer;">Mark all as read</button>
+                        </div>
+                        <div id="notif-list-container" style="max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+                            <div style="text-align: center; padding: 20px; font-size: 13px; color: var(--muted);">No notifications yet.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="refresh-button" id="refresh-button" title="Refresh dashboard">
                     ↻
                 </button>
-
             </div>
-
         </header>
 
-
-        <!-- SUMMARY -->
-
+        <!-- SUMMARY GRID -->
         <section class="summary-grid">
 
             <div class="summary-card">
-
                 <div class="summary-top">
-
-                    <span class="summary-label">
-                        Total Savings
-                    </span>
-
-                    <span class="summary-icon">
-                        ₹
-                    </span>
-
+                    <span class="summary-label">Total Savings</span>
+                    <span class="summary-icon">₹</span>
                 </div>
-
-                <div
-                    class="summary-value"
-                    id="total-savings"
-                >
-                    —
-                </div>
-
-                <div
-                    class="summary-note"
-                    id="savings-note"
-                >
-                    No savings data yet
-                </div>
-
+                <div class="summary-value" id="total-savings">—</div>
+                <div class="summary-note" id="savings-note">No active savings yet</div>
             </div>
 
-
             <div class="summary-card">
-
                 <div class="summary-top">
-
-                    <span class="summary-label">
-                        Interest Earned
-                    </span>
-
-                    <span class="summary-icon">
-                        %
-                    </span>
-
+                    <span class="summary-label">Estimated Interest</span>
+                    <span class="summary-icon">%</span>
                 </div>
-
-                <div
-                    class="summary-value"
-                    id="interest-earned"
-                >
-                    —
-                </div>
-
-                <div class="summary-note">
-                    Based on actual account data
-                </div>
-
+                <div class="summary-value" id="interest-earned">—</div>
+                <div class="summary-note" id="interest-note">Projected earnings</div>
             </div>
 
-
             <div class="summary-card">
-
                 <div class="summary-top">
-
-                    <span class="summary-label">
-                        Active Plan
-                    </span>
-
-                    <span class="summary-icon">
-                        ◈
-                    </span>
-
+                    <span class="summary-label">Active Plan</span>
+                    <span class="summary-icon">◈</span>
                 </div>
-
-                <div
-                    class="summary-value"
-                    id="active-plan"
-                >
-                    —
-                </div>
-
-                <div
-                    class="summary-note"
-                    id="plan-note"
-                >
-                    No active plan
-                </div>
-
+                <div class="summary-value" id="active-plan">—</div>
+                <div class="summary-note" id="plan-note">No active plan</div>
             </div>
 
-
             <div class="summary-card">
-
                 <div class="summary-top">
-
-                    <span class="summary-label">
-                        Savings Progress
-                    </span>
-
-                    <span class="summary-icon">
-                        ↗
-                    </span>
-
+                    <span class="summary-label">Savings Progress</span>
+                    <span class="summary-icon">↗</span>
                 </div>
-
-                <div
-                    class="summary-value"
-                    id="progress-value"
-                >
-                    —
-                </div>
-
-                <div class="summary-note">
-                    Based on your active plan
-                </div>
-
+                <div class="summary-value" id="progress-value">—</div>
+                <div class="summary-note">Towards your target</div>
             </div>
 
         </section>
 
-
-        <!-- ACTIVE PLAN + PROFILE -->
-
-        <section class="two-column">
-
-
-            <div
-                class="card"
-                id="active-plan-section"
-            >
-
-                <div class="card-header">
-
-                    <h2 class="card-title">
-                        Active Savings Plan
-                    </h2>
-
-                    <button
-                        type="button"
-                        class="secondary-button"
-                        id="view-plan-button"
-                    >
-                        View Plan
-                    </button>
-
-                </div>
-
-
-                <div
-                    class="empty-state"
-                    id="plan-empty-state"
-                >
-
-                    <div class="empty-icon">
-                        ₹
-                    </div>
-
-                    <h3 class="empty-title">
-                        No active savings plan
-                    </h3>
-
-                    <p class="empty-description">
-                        Your active savings plan will appear here after
-                        you select and activate a MoneyMint scheme.
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="plan-details"
-                    id="plan-details"
-                >
-
-                    <div class="plan-top">
-
-                        <div>
-
-                            <div
-                                class="plan-name"
-                                id="plan-name"
-                            >
-                                —
-                            </div>
-
-                            <span class="plan-status">
-
-                                <span class="plan-status-dot"></span>
-
-                                Active
-
-                            </span>
-
-                        </div>
-
-
-                        <div class="plan-interest">
-
-                            <div class="plan-interest-label">
-                                Interest Rate
-                            </div>
-
-                            <div
-                                class="plan-interest-value"
-                                id="plan-interest"
-                            >
-                                —
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="plan-stats">
-
-                        <div class="plan-stat">
-
-                            <span class="plan-stat-label">
-                                Deposited
-                            </span>
-
-                            <span
-                                class="plan-stat-value"
-                                id="plan-deposited"
-                            >
-                                —
-                            </span>
-
-                        </div>
-
-
-                        <div class="plan-stat">
-
-                            <span class="plan-stat-label">
-                                Target
-                            </span>
-
-                            <span
-                                class="plan-stat-value"
-                                id="plan-target"
-                            >
-                                —
-                            </span>
-
-                        </div>
-
-
-                        <div class="plan-stat">
-
-                            <span class="plan-stat-label">
-                                Maturity
-                            </span>
-
-                            <span
-                                class="plan-stat-value"
-                                id="plan-maturity"
-                            >
-                                —
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- PROFILE -->
-
-            <div
-                class="card"
-                id="profile-section"
-            >
-
-                <div class="card-header">
-
-                    <h2 class="card-title">
-                        My Account
-                    </h2>
-
-                    <button
-                        type="button"
-                        class="secondary-button"
-                        id="profile-button"
-                    >
-                        Profile
-                    </button>
-
-                </div>
-
-
-                <div class="profile-header">
-
-                    <div
-                        class="avatar"
-                        id="user-avatar"
-                    >
-                        U
-                    </div>
-
-                    <div>
-
-                        <div
-                            class="profile-name"
-                            id="profile-name"
-                        >
-                            Loading...
-                        </div>
-
-                        <div
-                            class="profile-email"
-                            id="profile-email"
-                        >
-                            Loading...
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="profile-details">
-
-                    <div class="detail-row">
-
-                        <span class="detail-label">
-                            Account ID
-                        </span>
-
-                        <span
-                            class="detail-value"
-                            id="profile-id"
-                        >
-                            —
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span class="detail-label">
-                            Mobile
-                        </span>
-
-                        <span
-                            class="detail-value"
-                            id="profile-mobile"
-                        >
-                            —
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span class="detail-label">
-                            Account Status
-                        </span>
-
-                        <span
-                            class="detail-value status-active"
-                            id="profile-status"
-                        >
-                            Active
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- SAVINGS PROGRESS -->
-
-        <section
-            class="card progress-card"
-            id="progress-section"
-        >
-
+        <!-- ACTIVE PLAN SUMMARY CARD -->
+        <section class="card" id="active-plan-section">
             <div class="card-header">
-
-                <h2 class="card-title">
-                    Savings Progress
-                </h2>
-
-                <span
-                    class="progress-status"
-                    id="progress-status"
-                >
-                    Waiting for savings data
-                </span>
-
+                <h2 class="card-title">Active Savings Summary</h2>
+                <a href="schemes.html" class="secondary-button">
+                    <span>Browse All Schemes</span>
+                    <span>→</span>
+                </a>
             </div>
 
+            <!-- EMPTY STATE -->
+            <div class="empty-state" id="plan-empty-state">
+                <div class="empty-icon">₹</div>
+                <h3 class="empty-title">No Active Savings Plan</h3>
+                <p class="empty-description">
+                    Start growing your money today by selecting one of MoneyMint's high-yield savings schemes.
+                </p>
+                <a href="schemes.html" class="primary-button" id="explore-schemes-btn">
+                    <span>Explore Savings Schemes</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- PLAN DETAILS -->
+            <div class="plan-details" id="plan-details">
+                <div class="plan-top">
+                    <div>
+                        <div class="plan-name" id="plan-name">—</div>
+                        <span class="plan-status">
+                            <span class="plan-status-dot"></span>
+                            Active &amp; Earning Interest
+                        </span>
+                    </div>
+
+                    <div class="plan-interest">
+                        <div class="plan-interest-label">Interest Rate</div>
+                        <div class="plan-interest-value" id="plan-interest">—</div>
+                    </div>
+                </div>
+
+                <div class="plan-stats">
+                    <div class="plan-stat">
+                        <span class="plan-stat-label">Total Deposited</span>
+                        <span class="plan-stat-value" id="plan-deposited">—</span>
+                    </div>
+
+                    <div class="plan-stat">
+                        <span class="plan-stat-label">Savings Target</span>
+                        <span class="plan-stat-value" id="plan-target">—</span>
+                    </div>
+
+                    <div class="plan-stat">
+                        <span class="plan-stat-label">Maturity Date</span>
+                        <span class="plan-stat-value" id="plan-maturity">—</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SAVINGS PROGRESS CARD -->
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">Savings Goal Progress</h2>
+                <span class="summary-note" id="progress-status">Based on active plan</span>
+            </div>
 
             <div class="progress-header">
-
-                <span
-                    class="progress-label"
-                    id="progress-label"
-                >
-                    No active plan
-                </span>
-
-                <span
-                    class="progress-percent"
-                    id="progress-percent"
-                >
-                    0%
-                </span>
-
+                <span class="progress-label" id="progress-label">No active plan</span>
+                <span class="progress-percent" id="progress-percent">0%</span>
             </div>
-
 
             <div class="progress-bar">
-
-                <div
-                    class="progress-fill"
-                    id="progress-fill"
-                ></div>
-
+                <div class="progress-fill" id="progress-fill"></div>
             </div>
-
 
             <div class="progress-info">
-
-                <span id="progress-current">
-                    No deposits recorded
-                </span>
-
-                <span id="progress-target">
-                    No target available
-                </span>
-
+                <span id="progress-current">No deposits recorded</span>
+                <span id="progress-target">Target: ₹0</span>
             </div>
-
-        </section>
-
-
-        <!-- SAVINGS SCHEMES -->
-
-        <section
-            class="card schemes-card"
-            id="schemes-section"
-        >
-
-            <div class="card-header">
-
-                <h2 class="card-title">
-                    Available Savings Schemes
-                </h2>
-
-                <button
-                    type="button"
-                    class="secondary-button"
-                    id="view-all-schemes-button"
-                >
-                    View All
-                </button>
-
-            </div>
-
-
-            <div
-                class="scheme-grid"
-                id="scheme-container"
-            >
-
-                <div class="empty-state">
-
-                    <div class="empty-icon">
-                        ◈
-                    </div>
-
-                    <h3 class="empty-title">
-                        Loading savings schemes...
-                    </h3>
-
-                    <p class="empty-description">
-                        Connecting to the MoneyMint database.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- TRANSACTIONS -->
-
-        <section
-            class="card"
-            id="transactions-section"
-        >
-
-            <div class="card-header">
-
-                <h2 class="card-title">
-                    Recent Transactions
-                </h2>
-
-                <button
-                    type="button"
-                    class="secondary-button"
-                    id="view-all-transactions-button"
-                >
-                    View All
-                </button>
-
-            </div>
-
-
-            <div
-                class="transaction-empty"
-                id="transaction-empty"
-            >
-
-                <div class="transaction-icon">
-                    ↔
-                </div>
-
-                <h3 class="transaction-empty-title">
-                    No transactions yet
-                </h3>
-
-                <p class="transaction-empty-text">
-                    Your deposits and other account transactions
-                    will appear here once they are recorded.
-                </p>
-
-            </div>
-
-
-            <div
-                class="transaction-list"
-                id="transaction-list"
-            ></div>
-
         </section>
 
     </main>
 
 </div>
 
+<!-- UPCOMING PAYMENT POPUP MODAL -->
+<div class="modal-overlay" id="notif-popup-modal">
+    <div class="modal-card" style="max-width: 420px; border-top: 5px solid var(--green);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--green-light); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 22px;">🔔</div>
+            <div>
+                <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--text);" id="popup-title">Upcoming Payment</h3>
+                <span style="font-size: 12px; color: var(--muted);" id="popup-date">Date: —</span>
+            </div>
+        </div>
+
+        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; background: var(--green-soft); padding: 14px; border-radius: 12px; border: 1px solid var(--border-light);" id="popup-message">
+            Your payment for Flexi Save is due in 2 days.
+        </p>
+
+        <div style="display: flex; gap: 12px;">
+            <button type="button" class="proceed-btn" id="popup-view-plan-btn" style="flex: 1; padding: 12px;">
+                View Plan
+            </button>
+            <button type="button" class="secondary-button" id="popup-dismiss-btn" style="flex: 1; justify-content: center; padding: 12px;">
+                Dismiss
+            </button>
+        </div>
+    </div>
+</div>
 
 <!-- TOAST -->
-
-<div
-    class="dashboard-toast"
-    id="dashboard-toast"
-    role="status"
-    aria-live="polite"
-></div>
-
+<div class="dashboard-toast" id="dashboard-toast" role="status" aria-live="polite"></div>
 
 <!-- JAVASCRIPT -->
-
 <script type="module">
 
 import { AuthService } from "../assets/js/auth.js";
@@ -1664,11 +923,7 @@ const API_URL = "http://localhost:5000";
 
 const $ = (id) => document.getElementById(id);
 
-
-/* =========================================================
-   AUTHENTICATION
-   ========================================================= */
-
+// Require Auth
 AuthService.requireAuth();
 
 const user = AuthService.getCurrentUser();
@@ -1677,342 +932,67 @@ if (!user) {
     window.location.href = "../index.html";
 }
 
+// Attach logout listener
+$("logout-button").addEventListener("click", () => {
+    AuthService.logout();
+});
 
-/* =========================================================
-   TOAST
-   ========================================================= */
-
+// Toast function
 function showToast(message) {
-
     const toast = $("dashboard-toast");
-
     if (!toast) return;
-
     toast.textContent = message;
-
     toast.classList.add("show");
-
     setTimeout(() => {
         toast.classList.remove("show");
     }, 2500);
 }
 
-
-/* =========================================================
-   SECURITY
-   ========================================================= */
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-
-/* =========================================================
-   USER INFORMATION
-   ========================================================= */
-
+// User info
 function loadUserInformation() {
-
     if (!user) return;
-
-    const fullName =
-        user.name ||
-        user.full_name ||
-        "User";
-
-    const firstName =
-        fullName.trim().split(/\s+/)[0];
-
-    const email =
-        user.email ||
-        "No email available";
-
-    const mobile =
-        user.mobile ||
-        "Not provided";
-
+    const fullName = user.name || user.full_name || "User";
+    const firstName = fullName.trim().split(/\s+/)[0];
     $("user-name").textContent = firstName;
-
-    $("profile-name").textContent = fullName;
-
-    $("profile-email").textContent = email;
-
-    $("profile-mobile").textContent = mobile;
-
-    $("user-avatar").textContent =
-        firstName.charAt(0).toUpperCase();
-
-    if (user.id) {
-
-        $("profile-id").textContent =
-            `MM-${String(user.id).padStart(6, "0")}`;
-
-    } else {
-
-        $("profile-id").textContent = "—";
-
-    }
 }
 
-
-/* =========================================================
-   EMPTY FINANCIAL STATE
-   ========================================================= */
-
-function setEmptyFinancialState() {
-
-    $("total-savings").textContent = "—";
-
-    $("savings-note").textContent =
-        "No savings data yet";
-
-    $("interest-earned").textContent = "—";
-
-    $("active-plan").textContent = "—";
-
-    $("plan-note").textContent =
-        "No active plan";
-
-    $("progress-value").textContent = "—";
-
-    $("progress-status").textContent =
-        "Waiting for savings data";
-
-    $("progress-label").textContent =
-        "No active plan";
-
-    $("progress-percent").textContent =
-        "0%";
-
-    $("progress-current").textContent =
-        "No deposits recorded";
-
-    $("progress-target").textContent =
-        "No target available";
-
-    $("progress-fill").style.width =
-        "0%";
-
-    $("plan-empty-state").style.display =
-        "block";
-
-    $("plan-details").classList.remove(
-        "visible"
-    );
-}
-
-
-/* =========================================================
-   DATE FORMAT
-   ========================================================= */
-
+// Format date helper
 function formatDate(dateValue) {
-
     if (!dateValue) return "—";
-
-    const date =
-        new Date(dateValue);
-
-    if (Number.isNaN(date.getTime())) {
-        return "—";
-    }
-
-    return date.toLocaleDateString(
-        "en-IN",
-        {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        }
-    );
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return "—";
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
 }
 
+// Empty state helper
+function setEmptyFinancialState() {
+    $("total-savings").textContent = "₹0";
+    $("savings-note").textContent = "No active deposits yet";
+    $("interest-earned").textContent = "₹0";
+    $("active-plan").textContent = "—";
+    $("plan-note").textContent = "No active plan";
+    $("progress-value").textContent = "0%";
+    $("progress-status").textContent = "No active plan selected";
+    $("progress-label").textContent = "No active plan";
+    $("progress-percent").textContent = "0%";
+    $("progress-current").textContent = "₹0 deposited";
+    $("progress-target").textContent = "Target: ₹0";
+    $("progress-fill").style.width = "0%";
 
-/* =========================================================
-   LOAD ACTIVE SAVINGS PLAN
-   ========================================================= */
+    $("plan-empty-state").style.display = "block";
+    $("plan-details").classList.remove("visible");
+}
 
+// Load Active Plan
 async function loadActiveSavingsPlan() {
-
-    if (!user || !user.id) {
-
-        console.error(
-            "User ID is missing from logged-in user.",
-            user
-        );
-
-        return;
-    }
-
-    try {
-
-        const response = await fetch(
-            `${API_URL}/api/savings/${user.id}`
-        );
-
-        if (!response.ok) {
-
-            throw new Error(
-                `Server returned ${response.status}`
-            );
-        }
-
-        const data =
-            await response.json();
-
-        console.log(
-            "Savings data:",
-            data
-        );
-
-
-        /* -----------------------------------------
-           NO ACTIVE PLAN
-           ----------------------------------------- */
-
-        if (
-            !data.success ||
-            !data.hasPlan ||
-            !data.plan
-        ) {
-
-            setEmptyFinancialState();
-
-            return;
-        }
-
-
-        /* -----------------------------------------
-           REAL PLAN DATA
-           ----------------------------------------- */
-
-        const plan = data.plan;
-
-        const deposited =
-            Number(plan.deposited_amount);
-
-        const target =
-            Number(plan.target_amount);
-
-        const progress =
-            Number(plan.progress || 0);
-
-
-        /* -----------------------------------------
-           SUMMARY CARDS
-           ----------------------------------------- */
-
-        $("total-savings").textContent =
-            `₹${deposited.toLocaleString("en-IN")}`;
-
-        $("savings-note").textContent =
-            "Current deposited amount";
-
-        $("active-plan").textContent =
-            plan.scheme_name;
-
-        $("plan-note").textContent =
-            `${plan.interest_rate}% interest`;
-
-        $("progress-value").textContent =
-            `${progress.toFixed(0)}%`;
-
-
-        /* -----------------------------------------
-           ACTIVE PLAN CARD
-           ----------------------------------------- */
-
-        $("plan-empty-state").style.display =
-            "none";
-
-        $("plan-details").classList.add(
-            "visible"
-        );
-
-        $("plan-name").textContent =
-            plan.scheme_name;
-
-        $("plan-interest").textContent =
-            `${plan.interest_rate}%`;
-
-        $("plan-deposited").textContent =
-            `₹${deposited.toLocaleString("en-IN")}`;
-
-        $("plan-target").textContent =
-            `₹${target.toLocaleString("en-IN")}`;
-
-        $("plan-maturity").textContent =
-            formatDate(plan.maturity_date);
-
-
-        /* -----------------------------------------
-           PROGRESS SECTION
-           ----------------------------------------- */
-
-        $("progress-status").textContent =
-            "Based on your active savings plan";
-
-        $("progress-label").textContent =
-            plan.scheme_name;
-
-        $("progress-percent").textContent =
-            `${progress.toFixed(0)}%`;
-
-        $("progress-current").textContent =
-            `₹${deposited.toLocaleString("en-IN")} saved`;
-
-        $("progress-target").textContent =
-            `Target: ₹${target.toLocaleString("en-IN")}`;
-
-        $("progress-fill").style.width =
-            `${Math.min(progress, 100)}%`;
-
-
-        /* -----------------------------------------
-           INTEREST EARNED
-           ----------------------------------------- */
-
-        $("interest-earned").textContent =
-            "—";
-
-    } catch (error) {
-
-        console.error(
-            "Failed to load active savings plan:",
-            error
-        );
-
-        showToast(
-            "Unable to load savings data."
-        );
-    }
-}
-
-
-/* =========================================================
-   LOAD RECENT TRANSACTIONS
-   ========================================================= */
-
-async function loadRecentTransactions() {
-
     if (!user || !user.id) return;
 
-    const list = $("transaction-list");
-    const emptyState = $("transaction-empty");
-
-    if (!list || !emptyState) return;
-
     try {
-
-        const response = await fetch(
-            `${API_URL}/api/payments/user/${user.id}`
-        );
+        const response = await fetch(`${API_URL}/api/savings/${user.id}`);
 
         if (!response.ok) {
             throw new Error(`Server returned ${response.status}`);
@@ -2020,1227 +1000,191 @@ async function loadRecentTransactions() {
 
         const data = await response.json();
 
-        if (
-            !data.success ||
-            !Array.isArray(data.payments) ||
-            data.payments.length === 0
-        ) {
-            emptyState.style.display = "block";
-            list.innerHTML = "";
+        if (!data.success || !data.hasPlan || !data.plan) {
+            setEmptyFinancialState();
             return;
         }
 
-        emptyState.style.display = "none";
+        const plan = data.plan;
+        const deposited = Number(plan.deposited_amount || 0);
+        const target = Number(plan.target_amount || 0);
+        const progress = Number(plan.progress || 0);
+        const interestRate = Number(plan.interest_rate || 0);
+        const durationMonths = Number(plan.duration_months || 12);
 
-        list.innerHTML = data.payments
-            .map(txn => {
+        // Estimate Interest
+        const estInterest = (deposited * interestRate * (durationMonths / 12)) / 100;
 
-                const dateStr = formatDate(txn.created_at);
-                const isSuccess = txn.payment_status === "SUCCESS";
-                const badgeColor = isSuccess ? "#1E7A4A" : "#B7791F";
-                const badgeBg = isSuccess ? "#EAF7F1" : "#FFF8E7";
-                const statusLabel = isSuccess ? "Success" : txn.payment_status;
+        $("total-savings").textContent = `₹${deposited.toLocaleString("en-IN")}`;
+        $("savings-note").textContent = "Active deposited balance";
 
-                return `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-light, #F0EEE8);">
-                        <div style="display: flex; align-items: center; gap: 14px;">
-                            <div style="width: 42px; height: 42px; border-radius: 12px; background: var(--green-light, #EAF5F1); color: var(--green, #2E6B5E); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px;">
-                                💳
-                            </div>
-                            <div>
-                                <div style="font-weight: 700; font-size: 15px; color: var(--text, #1A1A18);">${escapeHtml(txn.scheme_name || "Deposit Payment")}</div>
-                                <div style="font-size: 12px; color: var(--muted, #77776F); font-family: monospace; margin-top: 2px;">
-                                    ${escapeHtml(txn.transaction_id || "MMTXN-" + txn.id)} &bull; ${dateStr}
-                                </div>
-                            </div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-weight: 800; font-size: 16px; color: var(--green, #2E6B5E);">
-                                +₹${Number(txn.amount).toLocaleString("en-IN")}
-                            </div>
-                            <span style="display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: ${badgeBg}; color: ${badgeColor}; margin-top: 3px;">
-                                ${statusLabel}
-                            </span>
-                        </div>
-                    </div>
-                `;
-            })
-            .join("");
+        $("interest-earned").textContent = `₹${Math.round(estInterest).toLocaleString("en-IN")}`;
+        $("interest-note").textContent = `@ ${interestRate}% p.a. over ${durationMonths}m`;
+
+        $("active-plan").textContent = plan.scheme_name;
+        $("plan-note").textContent = `${interestRate}% interest p.a.`;
+
+        $("progress-value").textContent = `${Math.min(progress, 100).toFixed(0)}%`;
+
+        // Active plan summary card
+        $("plan-empty-state").style.display = "none";
+        $("plan-details").classList.add("visible");
+
+        $("plan-name").textContent = plan.scheme_name;
+        $("plan-interest").textContent = `${interestRate}%`;
+        $("plan-deposited").textContent = `₹${deposited.toLocaleString("en-IN")}`;
+        $("plan-target").textContent = `₹${target.toLocaleString("en-IN")}`;
+        $("plan-maturity").textContent = formatDate(plan.maturity_date);
+
+        // Progress section
+        $("progress-status").textContent = `Target goal: ₹${target.toLocaleString("en-IN")}`;
+        $("progress-label").textContent = plan.scheme_name;
+        $("progress-percent").textContent = `${Math.min(progress, 100).toFixed(0)}%`;
+        $("progress-current").textContent = `₹${deposited.toLocaleString("en-IN")} deposited`;
+        $("progress-target").textContent = `Target: ₹${target.toLocaleString("en-IN")}`;
+        $("progress-fill").style.width = `${Math.min(progress, 100)}%`;
 
     } catch (error) {
-
-        console.error("Failed to load transactions:", error);
-
+        console.error("Failed to load savings plan:", error);
+        setEmptyFinancialState();
+        showToast("Unable to load savings data.");
     }
 }
 
-
-/* =========================================================
-   CREATE SCHEME MODAL
-   ========================================================= */
-
-function createSchemeModal() {
-
-    if (document.getElementById("scheme-modal")) {
-        return;
-    }
-
-
-    const style =
-        document.createElement("style");
-
-    style.textContent = `
-
-        .scheme-modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(20, 35, 30, 0.45);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 1000;
-        }
-
-        .scheme-modal-overlay.show {
-            display: flex;
-        }
-
-        .scheme-modal {
-            width: 100%;
-            max-width: 470px;
-            background: white;
-            border-radius: 18px;
-            padding: 24px;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.18);
-        }
-
-        .scheme-modal-header {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            align-items: flex-start;
-            margin-bottom: 18px;
-        }
-
-        .scheme-modal-title {
-            font-family: "Plus Jakarta Sans", sans-serif;
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .scheme-modal-description {
-            color: #77776F;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        .scheme-modal-close {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: #F3F9F6;
-            color: #2E6B5E;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .scheme-modal-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .scheme-modal-info-item {
-            background: #F3F9F6;
-            border-radius: 10px;
-            padding: 11px;
-        }
-
-        .scheme-modal-info-label {
-            display: block;
-            color: #77776F;
-            font-size: 10px;
-            margin-bottom: 4px;
-        }
-
-        .scheme-modal-info-value {
-            font-size: 13px;
-            font-weight: 700;
-            color: #1A1A18;
-        }
-
-        .scheme-form-group {
-            margin-bottom: 15px;
-        }
-
-        .scheme-form-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
-
-        .scheme-form-input {
-            width: 100%;
-            border: 1px solid #E8E2D6;
-            border-radius: 9px;
-            padding: 11px 12px;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .scheme-form-input:focus {
-            border-color: #2E6B5E;
-        }
-
-        .scheme-form-help {
-            display: block;
-            color: #77776F;
-            font-size: 10px;
-            margin-top: 5px;
-        }
-
-        .scheme-modal-submit {
-            width: 100%;
-            border: none;
-            background: #2E6B5E;
-            color: white;
-            padding: 12px;
-            border-radius: 9px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        .scheme-modal-submit:hover {
-            background: #1E4F45;
-        }
-
-        .scheme-modal-submit:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-        }
-
-        .scheme-modal-error {
-            color: #C0392B;
-            background: #FFF1EF;
-            padding: 9px 11px;
-            border-radius: 8px;
-            font-size: 11px;
-            margin-bottom: 12px;
-            display: none;
-        }
-
-        @media (max-width: 500px) {
-
-            .scheme-modal {
-                padding: 19px;
-            }
-
-            .scheme-modal-info {
-                grid-template-columns: 1fr;
-            }
-
-        }
-    `;
-
-    document.head.appendChild(style);
-
-
-    const modal =
-        document.createElement("div");
-
-    modal.id = "scheme-modal";
-
-    modal.className =
-        "scheme-modal-overlay";
-
-
-    modal.innerHTML = `
-
-        <div
-            class="scheme-modal"
-            role="dialog"
-            aria-modal="true"
-        >
-
-            <div class="scheme-modal-header">
-
-                <div>
-
-                    <div
-                        class="scheme-modal-title"
-                        id="modal-scheme-name"
-                    >
-                        Scheme
-                    </div>
-
-                    <div
-                        class="scheme-modal-description"
-                        id="modal-scheme-description"
-                    >
-                        Scheme details
-                    </div>
-
-                </div>
-
-                <button
-                    type="button"
-                    class="scheme-modal-close"
-                    id="scheme-modal-close"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div
-                class="scheme-modal-info"
-                id="modal-scheme-info"
-            ></div>
-
-
-            <div
-                class="scheme-modal-error"
-                id="scheme-modal-error"
-            ></div>
-
-
-            <div class="scheme-form-group">
-
-                <label
-                    class="scheme-form-label"
-                    for="deposit-amount"
-                >
-                    Initial Deposit Amount
-                </label>
-
-                <input
-                    type="number"
-                    id="deposit-amount"
-                    class="scheme-form-input"
-                    min="1"
-                    step="0.01"
-                    placeholder="Enter deposit amount"
-                >
-
-                <span
-                    class="scheme-form-help"
-                    id="deposit-help"
-                ></span>
-
-            </div>
-
-
-            <div class="scheme-form-group">
-
-                <label
-                    class="scheme-form-label"
-                    for="target-amount"
-                >
-                    Savings Target Amount
-                </label>
-
-                <input
-                    type="number"
-                    id="target-amount"
-                    class="scheme-form-input"
-                    min="1"
-                    step="0.01"
-                    placeholder="Enter target amount"
-                >
-
-                <span class="scheme-form-help">
-                    Your progress will be calculated from
-                    deposit amount toward this target.
-                </span>
-
-            </div>
-
-
-            <button
-                type="button"
-                class="scheme-modal-submit"
-                id="activate-scheme-button"
-            >
-                Proceed to Payment &rarr;
-            </button>
-
-        </div>
-    `;
-
-
-    document.body.appendChild(modal);
-
-
-    /* =====================================================
-       IMPORTANT FIX
-       =====================================================
-
-       The original code created the button but never
-       connected its click event to activateScheme().
-
-       This line fixes the problem.
-       ===================================================== */
-
-    $("activate-scheme-button")
-        .addEventListener(
-            "click",
-            activateScheme
-        );
-
-
-    $("scheme-modal-close")
-        .addEventListener(
-            "click",
-            closeSchemeModal
-        );
-
-
-    modal.addEventListener(
-        "click",
-        (event) => {
-
-            if (
-                event.target === modal
-            ) {
-
-                closeSchemeModal();
-
-            }
-
-        }
-    );
-}
-
-
-/* =========================================================
-   OPEN SCHEME MODAL
-   ========================================================= */
-
-let selectedScheme = null;
-
-
-function openSchemeModal(scheme) {
-
-    createSchemeModal();
-
-    selectedScheme = scheme;
-
-
-    $("modal-scheme-name").textContent =
-        scheme.name;
-
-
-    $("modal-scheme-description").textContent =
-        scheme.description ||
-        "Savings scheme";
-
-
-    const minimum =
-        Number(scheme.minimum_amount);
-
-
-    const maximum =
-        scheme.maximum_amount !== null &&
-        scheme.maximum_amount !== undefined
-            ? Number(scheme.maximum_amount)
-            : null;
-
-
-    $("modal-scheme-info").innerHTML = `
-
-        <div class="scheme-modal-info-item">
-
-            <span class="scheme-modal-info-label">
-                Interest Rate
-            </span>
-
-            <span class="scheme-modal-info-value">
-                ${escapeHtml(scheme.interest_rate)}%
-            </span>
-
-        </div>
-
-
-        <div class="scheme-modal-info-item">
-
-            <span class="scheme-modal-info-label">
-                Duration
-            </span>
-
-            <span class="scheme-modal-info-value">
-                ${escapeHtml(scheme.duration_months)} Months
-            </span>
-
-        </div>
-
-
-        <div class="scheme-modal-info-item">
-
-            <span class="scheme-modal-info-label">
-                Minimum
-            </span>
-
-            <span class="scheme-modal-info-value">
-                ₹${minimum.toLocaleString("en-IN")}
-            </span>
-
-        </div>
-
-
-        <div class="scheme-modal-info-item">
-
-            <span class="scheme-modal-info-label">
-                Payout
-            </span>
-
-            <span class="scheme-modal-info-value">
-                ${escapeHtml(
-                    scheme.payout_type ||
-                    "At Maturity"
-                )}
-            </span>
-
-        </div>
-
-    `;
-
-
-    $("deposit-help").textContent =
-        maximum !== null
-            ? `Allowed: ₹${minimum.toLocaleString("en-IN")} – ₹${maximum.toLocaleString("en-IN")}`
-            : `Minimum deposit: ₹${minimum.toLocaleString("en-IN")}`;
-
-
-    $("deposit-amount").value = "";
-
-    $("target-amount").value = "";
-
-    $("scheme-modal-error").style.display =
-        "none";
-
-
-    $("scheme-modal").classList.add(
-        "show"
-    );
-
-
-    setTimeout(() => {
-        $("deposit-amount").focus();
-    }, 50);
-}
-
-
-/* =========================================================
-   CLOSE SCHEME MODAL
-   ========================================================= */
-
-function closeSchemeModal() {
-
-    const modal =
-        $("scheme-modal");
-
-    if (modal) {
-
-        modal.classList.remove(
-            "show"
-        );
-
-    }
-
-    selectedScheme = null;
-}
-
-
-/* =========================================================
-   ACTIVATE SCHEME
-   ========================================================= */
-
-async function activateScheme() {
-
-    console.log(
-        "Activate Savings Plan button clicked."
-    );
-
-
-    const errorBox =
-        $("scheme-modal-error");
-
-
-    if (!selectedScheme) {
-
-        errorBox.textContent =
-            "Please select a savings scheme first.";
-
-        errorBox.style.display =
-            "block";
-
-        return;
-    }
-
-
-    const depositInput =
-        $("deposit-amount");
-
-    const targetInput =
-        $("target-amount");
-
-
-    const depositAmount =
-        Number(depositInput.value);
-
-    const targetAmount =
-        Number(targetInput.value);
-
-
-    const minimum =
-        Number(
-            selectedScheme.minimum_amount
-        );
-
-
-    const maximum =
-        selectedScheme.maximum_amount !== null &&
-        selectedScheme.maximum_amount !== undefined
-            ? Number(
-                selectedScheme.maximum_amount
-            )
-            : null;
-
-
-    /* -----------------------------------------
-       VALIDATION
-       ----------------------------------------- */
-
-    if (
-        !depositInput.value ||
-        !Number.isFinite(depositAmount) ||
-        depositAmount <= 0
-    ) {
-
-        errorBox.textContent =
-            "Please enter a valid deposit amount.";
-
-        errorBox.style.display =
-            "block";
-
-        depositInput.focus();
-
-        return;
-    }
-
-
-    if (
-        depositAmount < minimum
-    ) {
-
-        errorBox.textContent =
-            `Minimum deposit is ₹${minimum.toLocaleString("en-IN")}.`;
-
-        errorBox.style.display =
-            "block";
-
-        depositInput.focus();
-
-        return;
-    }
-
-
-    if (
-        maximum !== null &&
-        depositAmount > maximum
-    ) {
-
-        errorBox.textContent =
-            `Maximum deposit is ₹${maximum.toLocaleString("en-IN")}.`;
-
-        errorBox.style.display =
-            "block";
-
-        depositInput.focus();
-
-        return;
-    }
-
-
-    if (
-        !targetInput.value ||
-        !Number.isFinite(targetAmount) ||
-        targetAmount <= 0
-    ) {
-
-        errorBox.textContent =
-            "Please enter a valid savings target.";
-
-        errorBox.style.display =
-            "block";
-
-        targetInput.focus();
-
-        return;
-    }
-
-
-    if (
-        targetAmount < depositAmount
-    ) {
-
-        errorBox.textContent =
-            "Savings target must be equal to or greater than the deposit amount.";
-
-        errorBox.style.display =
-            "block";
-
-        targetInput.focus();
-
-        return;
-    }
-
-
-    const currentUser = AuthService.getCurrentUser();
-
-    if (!currentUser) {
-
-        errorBox.textContent =
-            "User information is missing. Please log in again.";
-
-        errorBox.style.display =
-            "block";
-
-        return;
-    }
-
-
-    /* -----------------------------------------
-       REDIRECT TO PAYMENT PAGE
-       ----------------------------------------- */
-
-    closeSchemeModal();
-
-    window.location.href =
-        `payment.html?scheme_id=${selectedScheme.id}&amount=${depositAmount}&target_amount=${targetAmount}`;
-}
-
-
-/* =========================================================
-   LOAD REAL SAVINGS SCHEMES
-   ========================================================= */
-
-async function loadSchemes() {
-
-    const container =
-        $("scheme-container");
-
-
-    if (!container) return;
-
-
-    container.innerHTML = `
-
-        <div class="empty-state">
-
-            <div class="empty-icon">
-                ◈
-            </div>
-
-            <h3 class="empty-title">
-                Loading savings schemes...
-            </h3>
-
-            <p class="empty-description">
-                Fetching schemes from the MoneyMint database.
-            </p>
-
-        </div>
-
-    `;
-
-
+// Notifications Logic
+let activePopupNotif = null;
+
+async function loadNotifications() {
+    if (!user || !user.id) return;
     try {
+        const response = await fetch(`${API_URL}/api/notifications/${user.id}`);
+        const data = await response.json();
 
-        const response =
-            await fetch(
-                `${API_URL}/api/schemes`
-            );
+        if (!data.success) return;
 
+        const notifs = data.notifications || [];
+        const unreadCount = data.unreadCount || 0;
 
-        if (!response.ok) {
-
-            throw new Error(
-                `Server returned ${response.status}`
-            );
-
+        // Update badge
+        const badge = $("notif-badge");
+        if (unreadCount > 0) {
+            badge.textContent = unreadCount;
+            badge.style.display = "inline-block";
+        } else {
+            badge.style.display = "none";
         }
 
+        // Render list in dropdown
+        const listContainer = $("notif-list-container");
+        if (notifs.length === 0) {
+            listContainer.innerHTML = `<div style="text-align: center; padding: 20px; font-size: 13px; color: var(--muted);">No notifications yet.</div>`;
+        } else {
+            listContainer.innerHTML = "";
+            notifs.forEach(n => {
+                const item = document.createElement("div");
+                item.style.padding = "10px 12px";
+                item.style.borderRadius = "10px";
+                item.style.background = n.is_read ? "var(--cream)" : "var(--green-light)";
+                item.style.border = "1px solid var(--border-light)";
+                item.style.cursor = "pointer";
 
-        const data =
-            await response.json();
+                const dateStr = formatDate(n.scheduled_date);
 
-
-        if (
-            !data.success ||
-            !Array.isArray(data.schemes) ||
-            data.schemes.length === 0
-        ) {
-
-            container.innerHTML = `
-
-                <div class="empty-state">
-
-                    <div class="empty-icon">
-                        ◈
+                item.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;">
+                        <strong style="font-size: 13px; color: var(--text);">${n.title}</strong>
+                        <span style="font-size: 11px; color: var(--muted);">${dateStr}</span>
                     </div>
-
-                    <h3 class="empty-title">
-                        No savings schemes available
-                    </h3>
-
-                    <p class="empty-description">
-                        No active schemes were found.
-                    </p>
-
-                </div>
-
-            `;
-
-            return;
-        }
-
-
-        container.innerHTML = "";
-
-
-        data.schemes.forEach(
-            (scheme) => {
-
-                const card =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                card.className =
-                    "scheme-card";
-
-
-                const minimumAmount =
-                    Number(
-                        scheme.minimum_amount
-                    );
-
-
-                card.innerHTML = `
-
-                    <div class="scheme-icon">
-                        ◈
-                    </div>
-
-
-                    <div class="scheme-name">
-                        ${escapeHtml(
-                            scheme.name
-                        )}
-                    </div>
-
-
-                    <div class="scheme-description">
-                        ${escapeHtml(
-                            scheme.description ||
-                            "No description available."
-                        )}
-                    </div>
-
-
-                    <div class="scheme-meta">
-
-                        <div class="scheme-meta-item">
-
-                            <span class="scheme-meta-label">
-                                Interest
-                            </span>
-
-                            <span class="scheme-meta-value">
-                                ${escapeHtml(
-                                    scheme.interest_rate
-                                )}%
-                            </span>
-
-                        </div>
-
-
-                        <div class="scheme-meta-item">
-
-                            <span class="scheme-meta-label">
-                                Duration
-                            </span>
-
-                            <span class="scheme-meta-value">
-                                ${escapeHtml(
-                                    scheme.duration_months
-                                )} Months
-                            </span>
-
-                        </div>
-
-
-                        <div class="scheme-meta-item">
-
-                            <span class="scheme-meta-label">
-                                Minimum
-                            </span>
-
-                            <span class="scheme-meta-value">
-                                ₹${minimumAmount.toLocaleString("en-IN")}
-                            </span>
-
-                        </div>
-
-
-                        <div class="scheme-meta-item">
-
-                            <span class="scheme-meta-label">
-                                Payout
-                            </span>
-
-                            <span class="scheme-meta-value">
-                                ${escapeHtml(
-                                    scheme.payout_type ||
-                                    "At Maturity"
-                                )}
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="scheme-button"
-                    >
-                        View Details
-                    </button>
-
+                    <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">${n.message}</div>
                 `;
 
-
-                const button =
-                    card.querySelector(
-                        ".scheme-button"
-                    );
-
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        openSchemeModal(
-                            scheme
-                        );
-
+                item.addEventListener("click", async () => {
+                    if (!n.is_read) {
+                        await fetch(`${API_URL}/api/notifications/${n.id}/read`, { method: "POST" });
                     }
-                );
+                    $("notif-panel").style.display = "none";
+                    loadNotifications();
+                });
 
-
-                container.appendChild(
-                    card
-                );
-
-            }
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Failed to load schemes:",
-            error
-        );
-
-
-        container.innerHTML = `
-
-            <div class="error-state">
-
-                <p>
-                    Unable to load savings schemes.
-                </p>
-
-                <button
-                    type="button"
-                    class="retry-button"
-                    id="retry-schemes"
-                >
-                    Retry
-                </button>
-
-            </div>
-
-        `;
-
-
-        const retryButton =
-            $("retry-schemes");
-
-
-        if (retryButton) {
-
-            retryButton.addEventListener(
-                "click",
-                loadSchemes
-            );
-
+                listContainer.appendChild(item);
+            });
         }
 
+        // Handle Popup Toast
+        if (data.popupNotification) {
+            activePopupNotif = data.popupNotification;
+            $("popup-title").textContent = activePopupNotif.title || "Upcoming Payment";
+            $("popup-date").textContent = `Date: ${formatDate(activePopupNotif.scheduled_date)}`;
+            $("popup-message").textContent = activePopupNotif.message;
+            $("notif-popup-modal").classList.add("show");
+        }
+
+    } catch (err) {
+        console.error("Failed to load notifications:", err);
     }
 }
 
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
-$("logout-button")
-    .addEventListener(
-        "click",
-        () => {
-
-            AuthService.logout();
-
-        }
-    );
-
-
-/* =========================================================
-   REFRESH
-   ========================================================= */
-
-$("refresh-button")
-    .addEventListener(
-        "click",
-        async () => {
-
-            showToast(
-                "Refreshing dashboard..."
-            );
-
-            await loadSchemes();
-
-            await loadActiveSavingsPlan();
-
-            await loadRecentTransactions();
-
-            showToast(
-                "Dashboard refreshed."
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-function activateNavigation(
-    activeButton
-) {
-
-    document
-        .querySelectorAll(".nav-button")
-        .forEach(button => {
-
-            button.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    activeButton.classList.add(
-        "active"
-    );
-}
-
-
-$("nav-dashboard")
-    .addEventListener(
-        "click",
-        () => {
-
-            activateNavigation(
-                $("nav-dashboard")
-            );
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
-    );
-
-
-$("nav-schemes")
-    .addEventListener(
-        "click",
-        () => {
-
-            activateNavigation(
-                $("nav-schemes")
-            );
-
-            $("schemes-section")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
-
-        }
-    );
-
-
-$("nav-transactions")
-    .addEventListener(
-        "click",
-        () => {
-
-            activateNavigation(
-                $("nav-transactions")
-            );
-
-            $("transactions-section")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
-
-        }
-    );
-
-
-$("nav-profile")
-    .addEventListener(
-        "click",
-        () => {
-
-            activateNavigation(
-                $("nav-profile")
-            );
-
-            $("profile-section")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
-
-        }
-    );
-
-
-/* =========================================================
-   PROFILE BUTTON
-   ========================================================= */
-
-$("profile-button")
-    .addEventListener(
-        "click",
-        () => {
-
-            activateNavigation(
-                $("nav-profile")
-            );
-
-            $("profile-section")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
-
-        }
-    );
-
-
-/* =========================================================
-   VIEW PLAN
-   ========================================================= */
-
-$("view-plan-button")
-    .addEventListener(
-        "click",
-        () => {
-
-            $("progress-section")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
-
-        }
-    );
-
-
-/* =========================================================
-   VIEW ALL SCHEMES
-   ========================================================= */
-
-$("view-all-schemes-button")
-    .addEventListener(
-        "click",
-        () => {
-
-            activateNavigation(
-                $("nav-schemes")
-            );
-
-            $("schemes-section")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
-
-        }
-    );
-
-
-/* =========================================================
-   TRANSACTIONS
-   ========================================================= */
-
-$("view-all-transactions-button")
-    .addEventListener(
-        "click",
-        () => {
-
-            activateNavigation(
-                $("nav-transactions")
-            );
-
-            $("transactions-section")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
-
-        }
-    );
-
-
-/* =========================================================
-   INITIAL LOAD
-   ========================================================= */
-
+// Toggle notification panel dropdown
+$("notif-bell-btn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    const panel = $("notif-panel");
+    panel.style.display = panel.style.display === "none" || !panel.style.display ? "block" : "none";
+});
+
+document.addEventListener("click", (e) => {
+    const panel = $("notif-panel");
+    const bellBtn = $("notif-bell-btn");
+    if (panel && !panel.contains(e.target) && !bellBtn.contains(e.target)) {
+        panel.style.display = "none";
+    }
+});
+
+// Mark all as read
+$("mark-all-read-btn").addEventListener("click", async () => {
+    if (!user || !user.id) return;
+    await fetch(`${API_URL}/api/notifications/read-all/${user.id}`, { method: "POST" });
+    loadNotifications();
+});
+
+// Popup Dismiss handler
+$("popup-dismiss-btn").addEventListener("click", async () => {
+    $("notif-popup-modal").classList.remove("show");
+    if (activePopupNotif) {
+        await fetch(`${API_URL}/api/notifications/${activePopupNotif.id}/dismiss`, { method: "POST" });
+        activePopupNotif = null;
+        loadNotifications();
+    }
+});
+
+// Popup View Plan handler
+$("popup-view-plan-btn").addEventListener("click", async () => {
+    $("notif-popup-modal").classList.remove("show");
+    if (activePopupNotif) {
+        await fetch(`${API_URL}/api/notifications/${activePopupNotif.id}/read`, { method: "POST" });
+        activePopupNotif = null;
+        loadNotifications();
+    }
+    const planSection = $("active-plan-section");
+    if (planSection) {
+        planSection.scrollIntoView({ behavior: "smooth" });
+    }
+});
+
+// Refresh button
+$("refresh-button").addEventListener("click", async () => {
+    $("refresh-button").style.transform = "rotate(360deg)";
+    await loadActiveSavingsPlan();
+    await loadNotifications();
+    showToast("Dashboard refreshed.");
+    setTimeout(() => {
+        $("refresh-button").style.transform = "none";
+    }, 500);
+});
+
+// Initialize
 loadUserInformation();
-
-setEmptyFinancialState();
-
-createSchemeModal();
-
-loadSchemes();
-
 loadActiveSavingsPlan();
-
-loadRecentTransactions();
+loadNotifications();
 
 </script>
 

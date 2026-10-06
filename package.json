@@ -1,0 +1,17 @@
+{
+  "name": "moneymint",
+  "version": "1.0.0",
+  "description": "MoneyMint - Personal Finance & Savings Application",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
+  },
+  "keywords": [
+    "moneymint",
+    "finance",
+    "savings"
+  ],
+  "author": "",
+  "license": "ISC"
+}
